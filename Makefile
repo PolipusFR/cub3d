@@ -10,10 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME     := fdf
+NAME     := cub3D
 CC       := gcc
-FLAGS    := -Wall -Wextra -Werror
-HEADER   := includes/fdf.h
+FLAGS    := -Wall -Wextra -Werror -g3
+HEADER   := includes/cub3D.h
 
 SRCS        :=      utils/ft_atoi.c \
                         utils/ft_split.c \

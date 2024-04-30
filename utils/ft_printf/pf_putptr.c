@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/fdf.h"
+#include "../../includes/cub3D.h"
 
 int	get_printed_size(uintptr_t nb)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "../includes/cub3D.h"
 
 char	*gnl_strjoin(char *s1, char *s2)
 {

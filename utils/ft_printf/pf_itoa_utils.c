@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/fdf.h"
+#include "../../includes/cub3D.h"
 
 char	*pf_reverse(char *str, int len_str)
 {

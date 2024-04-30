@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "../includes/cub3D.h"
 
 void	malloc_z_matrix(t_fdf *data)
 {

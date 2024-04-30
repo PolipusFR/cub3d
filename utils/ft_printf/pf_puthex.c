@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/fdf.h"
+#include "../../includes/cub3D.h"
 
 int	pf_print_hex_string(char *hex_string, int size)
 {

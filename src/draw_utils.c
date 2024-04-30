@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "../includes/cub3D.h"
 
 void	data_setup_line_algo(t_fdf *data, int x, int y, int variation)
 {

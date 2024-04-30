@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef CUB3D_H
+# define CUB3D_H
 # include "../mlx_linux/mlx.h"
 # include <fcntl.h>
 # include <math.h>
@@ -22,8 +22,8 @@
 # include <limits.h>
 # include <stdint.h>
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 640
+# define HEIGHT 480
 
 typedef struct s_data
 {
@@ -60,6 +60,14 @@ typedef struct s_fdf
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*buff_img_ptr;
+
+	double	posX;
+	double	posY;
+	double	planeX;
+	double	planeY;
+	double	dirX;
+	double	dirY;
+	
 }	t_fdf;
 
 void	check_error(int ac, char **av);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "../includes/cub3D.h"
 
 static int	get_size(char *str, char c)
 {

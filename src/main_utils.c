@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "../includes/cub3D.h"
 
 void	check_error(int ac, char **av)
 {
@@ -20,15 +20,15 @@ void	check_error(int ac, char **av)
 	i = 0;
 	if (ac != 2)
 	{
-		ft_printf("Error. Usage : ./fdf map.fdf\n");
+		ft_printf("Error. Usage : ./cub3D map.cub\n");
 		exit (1);
 	}
 	split = ft_split(av[1], '.');
 	while (split[i])
 		i++;
-	if (!split[1] || ft_strcmp(split[i - 1], "fdf") != 0)
+	if (!split[1] || ft_strcmp(split[i - 1], "cub") != 0)
 	{
-		ft_printf("Error. Infile must be .fdf file\n");
+		ft_printf("Error. Infile must be .cub file\n");
 		i = 0;
 		while (split[i])
 			free(split[i++]);
