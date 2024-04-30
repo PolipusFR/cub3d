@@ -67,7 +67,8 @@ typedef struct s_fdf
 	double	planeY;
 	double	dirX;
 	double	dirY;
-	
+	double	rotSpeed;
+
 }	t_fdf;
 
 void	check_error(int ac, char **av);

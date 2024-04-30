@@ -15,6 +15,8 @@
 
 #define screenWidth 640
 #define screenHeight 480
+#define texWidth 64
+#define texHeight 64
 #define mapWidth 24
 #define mapHeight 24
 
@@ -29,6 +31,7 @@ int worldMap[mapWidth][mapHeight] =
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -45,8 +48,7 @@ int worldMap[mapWidth][mapHeight] =
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    {1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
@@ -212,23 +214,38 @@ int	destroy(t_fdf *data)
 
 int key_hook(int keycode, t_fdf *data)
 {
+	double oldPlaneX;
+	double oldDirX;
+
     if (keycode == ESC_KEY)
         ft_clear_and_exit(0, data);
     if (keycode == UP_KEY)
     {
-        data->posX -= 1.0;
+		data->posX += data->dirX * 1;
+		data->posY += data->dirY * 1;
     }
     else if (keycode == LEFT_KEY)
     {
-        data->posY -= 1.0;
+		oldPlaneX = data->planeX;
+		oldDirX = data->dirX;
+		data->dirX = data->dirX * cos(data->rotSpeed) - data->dirY * sin(data->rotSpeed);
+		data->dirY = oldDirX * sin(data->rotSpeed) + data->dirY * cos(data->rotSpeed);
+		data->planeX = data->planeX * cos(data->rotSpeed) - data->planeY * sin(data->rotSpeed);
+		data->planeY = oldPlaneX * sin(data->rotSpeed) + data->planeY * cos(data->rotSpeed);
     }
     else if (keycode == DOWN_KEY)
     {
-        data->posX += 1.0;
+        data->posX -= data->dirX * 1;
+		data->posY -= data->dirY * 1;
     }
     else if (keycode == RIGHT_KEY)
     {
-        data->posY += 1.0;
+		oldPlaneX = data->planeX;
+		oldDirX = data->dirX;
+		data->dirX = data->dirX * cos(-data->rotSpeed) - data->dirY * sin(-data->rotSpeed);
+		data->dirY = oldDirX * sin(-data->rotSpeed) + data->dirY * cos(-data->rotSpeed);
+		data->planeX = data->planeX * cos(-data->rotSpeed) - data->planeY * sin(-data->rotSpeed);
+		data->planeY = oldPlaneX * sin(-data->rotSpeed) + data->planeY * cos(-data->rotSpeed);
     }
 	render(data);
     return 0;
@@ -241,12 +258,13 @@ int main()
 	data = malloc(sizeof(t_fdf));
 	if (!data)
 		return(0);
-    data->posX = 22;
+    data->posX = 12;
 	data->posY = 12;
 	data->planeX = 0;
 	data->planeY = 0.66;
 	data->dirX = -1;
 	data->dirY = 0;
+	data->rotSpeed = 0.1;
 
     data->mlx_ptr = mlx_init();
     data->win_ptr = mlx_new_window(data->mlx_ptr, screenWidth, screenHeight, "Cub3D");
