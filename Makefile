@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+         #
+#    By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/20 19:21:06 by lsabatie          #+#    #+#              #
-#    Updated: 2023/10/21 13:54:03 by lsabatie         ###   ########.fr        #
+#    Updated: 2024/05/04 18:13:31 by lsabatie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,23 +18,13 @@ HEADER   := includes/cub3D.h
 SRCS        :=      utils/ft_atoi.c \
                         utils/ft_split.c \
                         utils/ft_strcmp.c \
+                        utils/ft_strlen.c \
+                        utils/ft_strncmp.c \
                         utils/get_next_line.c \
                         utils/get_next_line_utils.c \
-                        utils/ft_printf/ft_printf.c \
-                        utils/ft_printf/pf_itoa.c \
-                        utils/ft_printf/pf_itoa_utils.c \
-                        utils/ft_printf/pf_itoa_unsigned.c \
-                        utils/ft_printf/pf_puthex.c \
-                        utils/ft_printf/pf_putnbr.c \
-                        utils/ft_printf/pf_putptr.c \
-                        utils/ft_printf/pf_putstr.c \
-                        utils/ft_printf/pf_toupper.c \
                         src/main.c \
                         src/main_utils.c \
-                        src/read_file.c \
-                        src/draw.c \
-                        src/read_file_utils.c \
-                        src/draw_utils.c \
+
                           
 OBJS        := $(SRCS:.c=.o)
 

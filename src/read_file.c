@@ -52,7 +52,7 @@ void	fill_matrix(int *z_line, char *line, int width)
 	free(nums);
 }
 
-int	my_open_file(char *file_name, t_fdf *data)
+int	my_open_file(char *file_name, t_data *data)
 {
 	int	fd;
 
@@ -62,31 +62,31 @@ int	my_open_file(char *file_name, t_fdf *data)
 	return (fd);
 }
 
-void	read_file(char *file_name, t_fdf *data)
-{
-	int		fd;
-	char	*line;
-	int		i;
+// void	read_file(char *file_name, t_data *data)
+// {
+// 	int		fd;
+// 	char	*line;
+// 	int		i;
 
-	fd = my_open_file(file_name, data);
-	i = 0;
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		if (i == 0)
-			data->width = ft_wdcounter(line, ' ');
-		free (line);
-		i++;
-	}
-	data->height = i;
-	close (fd);
-	fd = my_open_file(file_name, data);
-	data->z_matrix = malloc(sizeof(int *) * (data->height + 1));
-	if (data->z_matrix == NULL)
-		return ;
-	malloc_z_matrix(data);
-	fill_z_matrix(data, fd);
-	close(fd);
-}
+// 	fd = my_open_file(file_name, data);
+// 	i = 0;
+// 	while (1)
+// 	{
+// 		line = get_next_line(fd);
+// 		if (!line)
+// 			break ;
+// 		if (i == 0)
+// 			data->width = ft_wdcounter(line, ' ');
+// 		free (line);
+// 		i++;
+// 	}
+// 	data->height = i;
+// 	close (fd);
+// 	fd = my_open_file(file_name, data);
+// 	data->z_matrix = malloc(sizeof(int *) * (data->height + 1));
+// 	if (data->z_matrix == NULL)
+// 		return ;
+// 	malloc_z_matrix(data);
+// 	fill_z_matrix(data, fd);
+// 	close(fd);
+// }
