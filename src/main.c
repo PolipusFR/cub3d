@@ -53,7 +53,7 @@ void draw_line(int x, int draw_start, int draw_end, int color, t_game_data *data
     y = 0;
     while (y < draw_start)
     {
-        my_mlx_pixel_put(data, x, y, 0x000000);
+        my_mlx_pixel_put(data, x, y, data->parse->added_c);
         y++;
     }
     while (y < draw_end)
@@ -63,7 +63,7 @@ void draw_line(int x, int draw_start, int draw_end, int color, t_game_data *data
     }
     while (y < HEIGHT)
     {
-        my_mlx_pixel_put(data, x, y, 0xFFFFFF);
+        my_mlx_pixel_put(data, x, y, data->parse->added_f);
         y++;
     }
 }
@@ -86,6 +86,9 @@ t_draw_calc init_draw(void)
     draw.step_y = 0;
     draw.hit = 0;
     draw.side = 0;
+    draw.line_height = 0;
+    draw.draw_start = 0;
+    draw.draw_end = 0;
     draw.color = 0xFFFF00;
     return (draw);
 }
@@ -103,6 +106,7 @@ int	render(t_data *data)
 	g_data->img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	while (x < WIDTH)
     {
+        draw = init_draw();
         draw.camera = 2 * x / (double)WIDTH - 1;
         draw.ray_dir_x = g_data->dir_x + g_data->plane_x * draw.camera;
         draw.ray_dir_y = g_data->dir_y + g_data->plane_y * draw.camera;
@@ -110,78 +114,77 @@ int	render(t_data *data)
         draw.map_x = (int)g_data->pos_x;
         draw.map_y = (int)g_data->pos_y;
 
-            if (draw.ray_dir_x == 0)
-                draw.delta_dist_x = 1e30;
-            else
-                draw.delta_dist_x = fabs(1 / draw.ray_dir_x);
-            if (draw.ray_dir_y == 0)
-                draw.delta_dist_y = 1e30;
-            else
-                draw.delta_dist_y = fabs(1 / draw.ray_dir_y);
+        if (draw.ray_dir_x == 0)
+            draw.delta_dist_x = 1e30;
+        else
+            draw.delta_dist_x = fabs(1 / draw.ray_dir_x);
+        if (draw.ray_dir_y == 0)
+            draw.delta_dist_y = 1e30;
+        else
+            draw.delta_dist_y = fabs(1 / draw.ray_dir_y);
+        if (draw.ray_dir_x < 0)
+        {
+            draw.step_x = -1;
+            draw.side_dist_x = (g_data->pos_x - draw.map_x) * draw.delta_dist_x;
+        }
+        else
+        {
+            draw.step_x = 1;
+            draw.side_dist_x = (draw.map_x + 1.0 - g_data->pos_x) * draw.delta_dist_x;
+        }
+        if (draw.ray_dir_y < 0)
+        {
+            draw.step_y = -1;
+            draw.side_dist_y = (g_data->pos_y - draw.map_y) * draw.delta_dist_y;
+        }
+        else
+        {
+            draw.step_y = 1;
+            draw.side_dist_y = (draw.map_y + 1.0 - g_data->pos_y) * draw.delta_dist_y;
+        }
 
-            if (draw.ray_dir_x < 0)
+        while (draw.hit == 0)
+        {
+            if (draw.side_dist_x < draw.side_dist_y)
             {
-                draw.step_x = -1;
-                draw.side_dist_x = (g_data->pos_x - draw.map_x) * draw.delta_dist_x;
+                draw.side_dist_x += draw.delta_dist_x;
+                draw.map_x += draw.step_x;
+                draw.side = 0;
             }
             else
             {
-                draw.step_x = 1;
-                draw.side_dist_x = (draw.map_x + 1.0 - g_data->pos_x) * draw.delta_dist_x;
+                draw.side_dist_y += draw.delta_dist_y;
+                draw.map_y += draw.step_y;
+                draw.side = 1;
             }
-            if (draw.ray_dir_y < 0)
-            {
-                draw.step_y = -1;
-                draw.side_dist_y = (g_data->pos_y - draw.map_y) * draw.delta_dist_y;
-            }
-            else
-            {
-                draw.step_y = 1;
-                draw.side_dist_y = (draw.map_y + 1.0 - g_data->pos_y) * draw.delta_dist_y;
-            }
+            if (g_data->parse->map[draw.map_x][draw.map_y] > '0')
+                draw.hit = 1;
+        }
 
-            while (draw.hit == 0)
-            {
-                if (draw.side_dist_x < draw.side_dist_y)
-                {
-                    draw.side_dist_x += draw.delta_dist_x;
-                    draw.map_x += draw.step_x;
-                    draw.side = 0;
-                }
-                else
-                {
-                    draw.side_dist_y += draw.delta_dist_y;
-                    draw.map_y += draw.step_y;
-                    draw.side = 1;
-                }
-                if (g_data->parse->map[draw.map_x][draw.map_y] == '1')
-                    draw.hit = 1;
-            }
-
-            if (draw.side == 0)
-                draw.perp_wall_dist = (draw.map_x - g_data->pos_x + (1 - draw.step_x) / 2) / draw.ray_dir_x;
-            else
-                draw.perp_wall_dist = (draw.map_y - g_data->pos_y + (1 - draw.step_y) / 2) / draw.ray_dir_y;
-
-            draw.line_height = (int)(HEIGHT / draw.perp_wall_dist);
-            draw.draw_start = -(draw.line_height) / 2 + HEIGHT / 2;
-            if (draw.draw_start < 0)
-                draw.draw_start = 0;
-            draw.draw_end = draw.line_height / 2 + HEIGHT / 2;
-            if (draw.draw_end >= HEIGHT)
-                draw.draw_end = HEIGHT - 1;
+        if (draw.side == 0)
+            draw.perp_wall_dist = (draw.map_x - g_data->pos_x + (1 - draw.step_x) / 2) / draw.ray_dir_x;
+        else
+            draw.perp_wall_dist = (draw.map_y - g_data->pos_y + (1 - draw.step_y) / 2) / draw.ray_dir_y;
+        
+        draw.line_height = (int)(HEIGHT / draw.perp_wall_dist);
+        draw.draw_start = -(draw.line_height) / 2 + HEIGHT / 2;
+        if (draw.draw_start < 0)
+            draw.draw_start = 0;
+        draw.draw_end = draw.line_height / 2 + HEIGHT / 2;
+        if (draw.draw_end >= HEIGHT)
+            draw.draw_end = HEIGHT - 1;
             
-            switch(g_data->parse->map[draw.map_x][draw.map_y])
-            {
-                case 1:  draw.color = 0xFF0000; break; //red
-                default: draw.color = 0xFFFF00; break; //yellow
-            }
-            if (draw.side == 1) 
-                draw.color = draw.color / 2;
-            draw_line(x, draw.draw_start, draw.draw_end, draw.color, g_data);
-            x++;
-		}
-	mlx_destroy_image(data->mlx_ptr, g_data->buff_img_ptr);
+        switch(g_data->parse->map[draw.map_x][draw.map_y])
+        {
+            case 1:  draw.color = 0xFF0000; break; //red
+            default: draw.color = 0xFFFF00; break; //yellow
+        }
+        if (draw.side == 1) 
+            draw.color = draw.color / 2;
+        draw_line(x, draw.draw_start, draw.draw_end, draw.color, g_data);
+        x++;
+	}
+    mlx_destroy_image(data->mlx_ptr, g_data->buff_img_ptr);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, g_data->img_ptr, 0, 0);
     return (0);
 }
@@ -322,8 +325,8 @@ void    init_parsing_data(t_parse *parse)
     parse->s = "pics/greystone.xpm";
     parse->e = "pics/purplestone.xpm";
     parse->w = "pics/redbrick.xpm";
-    parse->added_c = 0x0;
-	parse->added_f = 0x0;
+    parse->added_c = 0x00FFFF;
+	parse->added_f = 0x008000;
     parse->player[0] = 12;
     parse->player[1] = 12;
 	parse->f[0] = -1;
@@ -347,7 +350,10 @@ void    init_parsing_data(t_parse *parse)
         i++;
     }
     parse->map[i] = "111111111111111111111111";
-    printf("%c\n", parse->map[0][0]);
+    for (i = 0; i < 25; i++)
+    {
+        printf("%s\n", parse->map[i]);
+    }
 }
 
 int manual_parsing(t_parse *parse)
@@ -361,7 +367,7 @@ int main(int ac, char **av)
 	t_data  data;
     t_parse parse;
 
-    if (ac == 2 && check_args(av[1]) == 0)
+    if (ac == 2 && check_args(av[1]) != 0)
     {
         manual_parsing(&parse);
         // replace manual_parsing() with start_parsing(&parse);

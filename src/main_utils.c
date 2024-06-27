@@ -18,11 +18,17 @@ int	check_args(char *str)
 
 	i = 0;
 	if (ft_strlen(str) < 4)
-		return(printf("Error: Invalid file extension.\n"));
+	{
+		printf("Error: Invalid file extension.\n");
+		return(0);
+	}
 	while (i < ft_strlen(str) - 4)
 		i++;
-	if (ft_strncmp(str + i, ".cub", 4) == 0)
+	if (ft_strncmp(str + i, ".cub", 4) != 0)
+	{
+		printf("Error: File must be a .cub file.\n");
 		return (0);
+	}
 	return (1);
 }
 

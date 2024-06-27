@@ -19,8 +19,8 @@
 # include <stdio.h>
 # include <unistd.h> // read
 
-# define WIDTH 1910
-# define HEIGHT 1020
+# define WIDTH 1920
+# define HEIGHT 1080
 
 # define ESC_KEY 65307
 # define UP_KEY 122
