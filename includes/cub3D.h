@@ -15,6 +15,7 @@
 # include "../mlx_linux/mlx.h"
 # include <fcntl.h>
 # include <stdlib.h> // free
+# include <stdint.h> // for calloc
 # include <math.h>
 # include <stdio.h>
 # include <unistd.h> // read
@@ -84,6 +85,17 @@ typedef struct s_data
 	t_texture	*texture;
 }				t_data;
 
+typedef struct s_color
+{
+	int				tex_num;
+	double			wall_x;
+	int				tex_x;
+	int				tex_y;
+	double			step;
+	double			tex_pos;
+	unsigned int	color;
+}			t_color;
+
 typedef struct s_draw_calc
 {
 	double	camera;
@@ -103,22 +115,19 @@ typedef struct s_draw_calc
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
-	int		color;
+	int		*colors;
+	int		wall_x;
 }		t_draw_calc;
 
 int		check_args(char *str);
-void	fill_matrix(int *z_line, char *line, int width);
-void	read_file(char *file_name, t_game_data *data);
-void	line_algo(t_game_data *data);
 void	draw(t_data *data);
 void	my_mlx_pixel_put(t_game_data *data, int x, int y, int color);
-int		get_height(char *file_name, t_game_data *data);
-void	malloc_z_matrix(t_data *data);
-void	fill_z_matrix(t_data *data, int fd);
-void	data_setup_line_algo(t_game_data *data, int x, int y, int variation);
-void	line_algo_setup(t_game_data *data);
-void	perspective(float *x, float *y, int z);
 void	ft_clear_and_exit(int code, t_data *data);
+int		get_pixel_from_texture(t_texture *texture, int tex_x, int tex_y);
+void	init_color(t_color *color);
+int		get_texnum(t_draw_calc *draw);
+
+void	*ft_calloc(size_t count, size_t size);
 
 ////////////////	UTILS		////////////////////
 
