@@ -125,12 +125,14 @@ typedef struct s_draw_calc
 int		check_args(char *str);
 void	draw(t_data *data);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void	ft_clear_and_exit(int code, t_data *data);
+int		ft_clear_and_exit(t_data *data);
 int		get_pixel_from_texture(t_texture *texture, int tex_x, int tex_y);
 void	init_color(t_color *color);
 int		get_texnum(t_draw_calc *draw);
 
 void	*ft_calloc(size_t count, size_t size);
+char	*ft_strdup(const char *s1);
+void 	clear_textures(void *mlx, t_texture *text);
 
 ////////////////	UTILS		////////////////////
 

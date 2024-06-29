@@ -197,55 +197,45 @@ int render(t_data *data)
     g_data->img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
     while (x < WIDTH)
     {
-
         prepare_render_data(&draw, g_data, x);
         calc_step(&draw, g_data);
         check_hit(&draw, g_data);
         calc_wall_height(&draw);
         get_tex_color(&draw, data);
-
-        switch (g_data->parse->map[draw.map_x][draw.map_y])
-        {
-        case 1:
-            draw.colors[0] = 0xFF00FF;
-            break; // red
-        default:
-            draw.colors[0] = 0xFFFF00;
-            break; // yellow
-        }
-        if (draw.side == 1)
-            draw.colors[0] = draw.colors[0] / 2;
-
-        
         draw_line(x, draw.draw_start, draw.draw_end, data, &draw);
         x++;
     }
     mlx_destroy_image(data->mlx_ptr, g_data->buff_img_ptr);
     mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, g_data->img_ptr, 0, 0);
-    return (0);
+	free(draw.colors);
+	return (0);
 }
 
-void ft_clear_and_exit(int code, t_data *data)
+int ft_clear_and_exit(t_data *data)
 {
-    if (code == 2)
-    {
-        free(data);
-        printf("Error. File not found\n");
-        exit(1);
-    }
+	int i;
+
+	i = 0;
+	if (data->parse->map)
+	{
+		while (i < mapHeight)
+			free(data->parse->map[i++]);
+		free(data->parse->map[i]);
+		free (data->parse->map);
+	}
+	if (data->game_data->img_ptr)
+		mlx_destroy_image(data->mlx_ptr, data->game_data->img_ptr);
+	if (data->game_data)
+		free(data->game_data);
+	if (data->parse)
+		free(data->parse);
+	if (data->texture)
+			clear_textures(data->mlx_ptr, data->texture);
     if (data->win_ptr)
         mlx_destroy_window(data->mlx_ptr, data->win_ptr);
     mlx_destroy_display(data->mlx_ptr);
     free(data->mlx_ptr);
-    // if (data)
-    // 	free(data);
     exit(0);
-}
-
-int destroy(t_data *data)
-{
-    ft_clear_and_exit(0, data);
-    return (0);
 }
 
 int key_hook(int keycode, t_data *data)
@@ -257,7 +247,7 @@ int key_hook(int keycode, t_data *data)
     g_data = data->game_data;
 
     if (keycode == ESC_KEY)
-        ft_clear_and_exit(0, data);
+        ft_clear_and_exit(data);
     if (keycode == W_KEY)
     {
         g_data->pos_x += g_data->dir_x * 1;
@@ -365,8 +355,6 @@ t_game_data *init_game_data(t_data *data)
     t_game_data *g_data;
 
     g_data = malloc(sizeof(t_game_data));
-    if (!g_data)
-        return (NULL);
     g_data->parse = data->parse;
     g_data->img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
     g_data->addr = mlx_get_data_addr(g_data->img_ptr, &g_data->bits_per_pixel,
@@ -382,11 +370,13 @@ t_game_data *init_game_data(t_data *data)
     return (g_data);
 }
 
-void init_parsing_data(t_parse *parse)
+t_parse *init_parsing_data(void)
 {
+	t_parse *parse;
     int i;
 
     i = 0;
+	parse = malloc(sizeof(t_parse));
     parse->n = "pics/bluestone.xpm";
     parse->s = "pics/greystone.xpm";
     parse->e = "pics/purplestone.xpm";
@@ -403,55 +393,41 @@ void init_parsing_data(t_parse *parse)
     parse->c[2] = -1;
     parse->orientation = 'N';
     parse->map = malloc(sizeof(char *) * (mapHeight + 1));
-    while (i < mapHeight)
-    {
-        parse->map[i] = malloc(sizeof(char) * (mapWidth + 1));
-        i++;
-    }
-    parse->map[0] = "111111111111111111111111";
+    parse->map[0] = ft_strdup("111111111111111111111111");
     i = 1;
     while (i < 24)
     {
-        parse->map[i] = "100000000000000000000001";
+        parse->map[i] = ft_strdup("100000000000000000000001");
         i++;
     }
-    parse->map[i] = "111111111111111111111111";
-    for (i = 0; i < 25; i++)
-    {
-        printf("%s\n", parse->map[i]);
-    }
-}
-
-int manual_parsing(t_parse *parse)
-{
-    init_parsing_data(parse);
-    return (0);
+    parse->map[i] = ft_strdup("111111111111111111111111");
+	return (parse);
 }
 
 int main(int ac, char **av)
 {
     t_data data;
-    t_parse parse;
+    t_parse *parse;
 
     if (ac == 2 && check_args(av[1]) != 0)
     {
-        manual_parsing(&parse);
+        parse = init_parsing_data();
         // replace manual_parsing() with start_parsing(&parse);
         // check_valid_map();
         data.mlx_ptr = mlx_init();
         data.win_ptr = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Cub3D");
-        data.parse = &parse;
+        data.parse = parse;
         data.game_data = init_game_data(&data);
         if (!data.game_data)
-            ft_clear_and_exit(0, &data);
-        data.texture = get_textures(data.mlx_ptr, &parse);
+            ft_clear_and_exit(&data);
+        data.texture = get_textures(data.mlx_ptr, parse);
         if (!data.texture)
-            ft_clear_and_exit(0, &data);
-        mlx_hook(data.win_ptr, 33, 1l << 17, destroy, &data);
+            ft_clear_and_exit(&data);
+        mlx_hook(data.win_ptr, 33, 1l << 17, ft_clear_and_exit, &data);
         mlx_key_hook(data.win_ptr, key_hook, &data);
         mlx_loop_hook(data.mlx_ptr, render, &data);
         mlx_loop(data.mlx_ptr);
-        // ft_clear_and_exit();
+        ft_clear_and_exit(&data);
     }
     return (0);
 }
