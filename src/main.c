@@ -11,39 +11,9 @@
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-#include <stdio.h>
 
-#define texWidth 64
-#define texHeight 64
 #define mapWidth 24
 #define mapHeight 24
-
-int worldMap[mapWidth][mapHeight] =
-    {
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
 void draw_line(int x, int draw_start, int draw_end, t_data *data, t_draw_calc *draw)
 {
@@ -52,42 +22,21 @@ void draw_line(int x, int draw_start, int draw_end, t_data *data, t_draw_calc *d
     y = 0;
     while (y < draw_start)
     {
-        my_mlx_pixel_put(data->game_data, x, y, data->parse->added_c);
+        my_mlx_pixel_put(data->game_data->img_ptr, x, y, data->parse->color_c);
         y++;
     }
     while (y < draw_end)
     {
-        my_mlx_pixel_put(data->game_data, x, y, draw->colors[y]);
+        my_mlx_pixel_put(data->game_data->img_ptr, x, y, draw->colors[y]);
         y++;
     }
     while (y < HEIGHT)
     {
-        my_mlx_pixel_put(data->game_data, x, y, data->parse->added_f);
+        my_mlx_pixel_put(data->game_data->img_ptr, x, y, data->parse->color_f);
         y++;
     }
 }
 
-// void draw_line(int x, int draw_start, int draw_end, int color, t_game_data *data)
-// {
-//     int y;
-
-//     y = 0;
-//     while (y < draw_start)
-//     {
-//         my_mlx_pixel_put(data, x, y, data->parse->added_c);
-//         y++;
-//     }
-//     while (y < draw_end)
-//     {
-//         my_mlx_pixel_put(data, x, y, color);
-//         y++;
-//     }
-//     while (y < HEIGHT)
-//     {
-//         my_mlx_pixel_put(data, x, y, data->parse->added_f);
-//         y++;
-//     }
-// }
 
 t_draw_calc init_draw(void)
 {
@@ -309,12 +258,27 @@ int key_hook(int keycode, t_data *data)
 
     if (keycode == ESC_KEY)
         ft_clear_and_exit(0, data);
-    if (keycode == UP_KEY)
+    if (keycode == W_KEY)
     {
         g_data->pos_x += g_data->dir_x * 1;
         g_data->pos_y += g_data->dir_y * 1;
     }
-    else if (keycode == LEFT_KEY)
+    else if (keycode == A_KEY)
+    {
+        g_data->pos_x += g_data->plane_x * 1;
+        g_data->pos_y += g_data->plane_y * 1;
+    }
+    else if (keycode == S_KEY)
+    {
+        g_data->pos_x -= g_data->dir_x * 1;
+        g_data->pos_y -= g_data->dir_y * 1;
+    }
+    else if (keycode == D_KEY)
+    {
+        g_data->pos_x -= g_data->plane_x * 1;
+        g_data->pos_y -= g_data->plane_y * 1;
+    }
+    else if (keycode == RIGHT_KEY)
     {
         oldplane_x = g_data->plane_x;
         olddir_x = g_data->dir_x;
@@ -323,12 +287,7 @@ int key_hook(int keycode, t_data *data)
         g_data->plane_x = g_data->plane_x * cos(g_data->rot_speed) - g_data->plane_y * sin(g_data->rot_speed);
         g_data->plane_y = oldplane_x * sin(g_data->rot_speed) + g_data->plane_y * cos(g_data->rot_speed);
     }
-    else if (keycode == DOWN_KEY)
-    {
-        g_data->pos_x -= g_data->dir_x * 1;
-        g_data->pos_y -= g_data->dir_y * 1;
-    }
-    else if (keycode == RIGHT_KEY)
+    else if (keycode == LEFT_KEY)
     {
         oldplane_x = g_data->plane_x;
         olddir_x = g_data->dir_x;
@@ -337,7 +296,30 @@ int key_hook(int keycode, t_data *data)
         g_data->plane_x = g_data->plane_x * cos(-g_data->rot_speed) - g_data->plane_y * sin(-g_data->rot_speed);
         g_data->plane_y = oldplane_x * sin(-g_data->rot_speed) + g_data->plane_y * cos(-g_data->rot_speed);
     }
-    return 0;
+    return 1;
+}
+
+int	mouse_hook(int mouse_code, t_data *data)
+{
+	int mouse_visible;
+
+	mouse_visible = 1;
+	printf("%d\n", mouse_code);
+	if (mouse_code == 1)
+	{
+		if (mouse_visible == 1)
+		{
+			mouse_visible = 0;
+			mlx_mouse_hide(&data->mlx_ptr, &data->win_ptr);
+		}
+		else
+		{
+			mouse_visible = 1;
+			mlx_mouse_show(data->mlx_ptr, data->win_ptr);
+		}
+		
+	}
+	return (1);
 }
 
 t_texture *get_textures(void *mlx, t_parse *parse);
@@ -409,8 +391,8 @@ void init_parsing_data(t_parse *parse)
     parse->s = "pics/greystone.xpm";
     parse->e = "pics/purplestone.xpm";
     parse->w = "pics/redbrick.xpm";
-    parse->added_c = 0x00FFFF;
-    parse->added_f = 0x008000;
+    parse->color_c = 0x00FFFF;
+    parse->color_f = 0x008000;
     parse->player[0] = 12;
     parse->player[1] = 12;
     parse->f[0] = -1;
@@ -465,8 +447,8 @@ int main(int ac, char **av)
         data.texture = get_textures(data.mlx_ptr, &parse);
         if (!data.texture)
             ft_clear_and_exit(0, &data);
-        mlx_key_hook(data.win_ptr, key_hook, &data);
         mlx_hook(data.win_ptr, 33, 1l << 17, destroy, &data);
+        mlx_key_hook(data.win_ptr, key_hook, &data);
         mlx_loop_hook(data.mlx_ptr, render, &data);
         mlx_loop(data.mlx_ptr);
         // ft_clear_and_exit();
@@ -519,46 +501,3 @@ t_texture *get_textures(void *mlx, t_parse *parse)
     }
     return (textures);
 }
-
-// int main (int ac, char **av)
-// {
-// 	t_camera	*camera;
-// 	int			i;
-
-// 	i = 0;
-// 	camera = malloc(sizeof(t_camera));
-// 	if (!camera)
-// 		return (0);
-// 	camera->dir_x = 1;
-// 	camera->dir_y = 0;
-// 	camera->pos_x = 2;
-// 	camera->pos_y = 2;
-// 	camera->plane_x = 0;
-// 	camera->plane_y = 0.66;
-// 	draw(camera);
-// 	mlx_key_hook(data->win_ptr, deal_key, data);
-// 	mlx_hook(data->win_ptr, 33, 1l << 17, destroy, data);
-// 	mlx_loop(data->mlx_ptr);
-// }
-
-// int	main(int ac, char **av)
-// {
-// 	t_game_data	*data;
-
-// 	check_error(ac, av);
-// 	data = malloc(sizeof(t_game_data));
-// 	if (!data)
-// 		return (0);
-// 	read_file (av[1], data);
-// 	data->mlx_ptr = mlx_init();
-// 	data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, av[1]);
-// 	data->img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
-// 	data->zoom = 20;
-// 	data->move_x = 0;
-// 	data->move_y = 0;
-// 	data->move_z = 1;
-// 	draw(data);
-// 	mlx_key_hook(data->win_ptr, deal_key, data);
-// 	mlx_hook(data->win_ptr, 33, 1l << 17, destroy, data);
-// 	mlx_loop(data->mlx_ptr);
-// }

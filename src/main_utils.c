@@ -63,18 +63,25 @@ int get_pixel_from_texture(t_texture *texture, int x, int y)
     return (color);
 }
 
-void	my_mlx_pixel_put(t_game_data *data, int x, int y, int color)
-{
-	char	*dst;
+// void	my_mlx_pixel_put(t_game_data *data, int x, int y, int color)
+// {
+// 	char	*dst;
 
-	if ((x >= 0 && x < WIDTH) && (y >= 0 && y < HEIGHT))
-	{
-		data->addr = mlx_get_data_addr(data->img_ptr, &data->bits_per_pixel,
-				&data->size_line, &data->endian);
-		dst = data->addr + (y * data->size_line + x
-				* (data->bits_per_pixel / 8));
-		*(unsigned int *)dst = color;
-	}
+// 	if ((x >= 0 && x < WIDTH) && (y >= 0 && y < HEIGHT))
+// 	{
+// 		data->addr = mlx_get_data_addr(data->img_ptr, &data->bits_per_pixel,
+// 				&data->size_line, &data->endian);
+// 		dst = data->addr + (y * data->size_line + x
+// 				* (data->bits_per_pixel / 8));
+// 		*(unsigned int *)dst = color;
+// 	}
+// }
+
+void    my_mlx_pixel_put(t_img *img, int x, int y, int color)
+{
+    if ((size_t)x >= (size_t)img->width || (size_t)y >= (size_t)img->height)
+        return ;
+    ((int *)img->data)[y * (img->width) + x] = color;
 }
 
 int	get_texnum(t_draw_calc *draw)
@@ -113,10 +120,3 @@ void	init_color(t_color *color)
 	color->tex_pos = 0;
 	color->color = 0;
 }
-
-// void    re_pixeltoimg(t_img *img, int x, int y, int color)
-// {
-//     if ((size_t)x >= (size_t)img->width || (size_t)y >= (size_t)img->height)
-//         return ;
-//     ((int *)img->data)[y * (img->width) + x] = color;
-// }

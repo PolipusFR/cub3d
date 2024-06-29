@@ -1,18 +1,19 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/16 15:06:10 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/05/07 14:31:34 by lsabatie         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   cub3D.h											:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: lsabatie <lsabatie@student.42lyon.fr>	  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2023/07/16 15:06:10 by lsabatie		  #+#	#+#			 */
+/*   Updated: 2024/05/07 14:31:34 by lsabatie		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "../mlx_linux/mlx.h"
+# include "../mlx_linux/mlx_int.h"
 # include <fcntl.h>
 # include <stdlib.h> // free
 # include <stdint.h> // for calloc
@@ -24,22 +25,24 @@
 # define HEIGHT 1080
 
 # define ESC_KEY 65307
-# define UP_KEY 122
-# define LEFT_KEY 100
-# define DOWN_KEY 115
-# define RIGHT_KEY 113
+# define W_KEY 122
+# define A_KEY 100
+# define S_KEY 115
+# define D_KEY 113
+# define LEFT_KEY 65361
+# define RIGHT_KEY 65363
 
 typedef struct s_texture
 {
-    void    *img;
-    int     *colors;
-    char    *addr;
-    int     endian;
-    int		sizeline;
-    int		bits_per_pixel;
-    int		width;
-    int		height;
-}                t_texture;
+	void	*img;
+	int		*colors;
+	char	*addr;
+	int		endian;
+	int		sizeline;
+	int		bits_per_pixel;
+	int		width;
+	int		height;
+}				t_texture;
 
 typedef struct s_parse
 {
@@ -47,8 +50,8 @@ typedef struct s_parse
 	double			player[2];
 	int				f[3];
 	int				c[3];
-	unsigned long	added_f;
-	unsigned long	added_c;
+	unsigned long	color_f;
+	unsigned long	color_c;
 	char			orientation;
 	char			*n;
 	char			*s;
@@ -79,7 +82,7 @@ typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	
+
 	t_parse		*parse;
 	t_game_data	*game_data;
 	t_texture	*texture;
@@ -121,7 +124,7 @@ typedef struct s_draw_calc
 
 int		check_args(char *str);
 void	draw(t_data *data);
-void	my_mlx_pixel_put(t_game_data *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	ft_clear_and_exit(int code, t_data *data);
 int		get_pixel_from_texture(t_texture *texture, int tex_x, int tex_y);
 void	init_color(t_color *color);
@@ -147,7 +150,7 @@ char	*get_next_line(int fd);
 
 int		ft_strncmp(const char *s1, const char *s2, int n);
 int		ft_strcmp(char *s1, char *s2);
-int 	ft_strlen(char *str);
+int		ft_strlen(char *str);
 int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
 
