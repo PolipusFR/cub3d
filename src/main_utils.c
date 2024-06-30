@@ -6,7 +6,7 @@
 /*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:23:21 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/05/04 21:43:31 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/06/30 18:29:21 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,22 +90,22 @@ int	get_texnum(t_draw_calc *draw)
 	{
 		if (draw->ray_dir_y > 0)
 		{
-			return (1);
+			return (2);
 		}
 		else
 		{
-			return (0);
+			return (3);
 		}
 	}
 	else
 	{
 		if (draw->ray_dir_x > 0)
 		{
-			return (2);
+			return (0);
 		}
 		else
 		{
-			return (3);
+			return (1);
 		}
 	}
 }

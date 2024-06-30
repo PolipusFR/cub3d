@@ -238,33 +238,65 @@ int ft_clear_and_exit(t_data *data)
     exit(0);
 }
 
+int	move_possible(t_data *data, double new_pos_x, double new_pos_y)
+{
+	printf("new_pos_x: %f new_pos_y: %f\n", new_pos_x, new_pos_y);
+	if (new_pos_x < 1 || new_pos_y < 1)
+		return(1);
+	if (new_pos_y > (double)ft_strlen(data->parse->map[0]) - 1.1)
+		return (1);
+	if (new_pos_x > (double)ft_tablen(data->parse->map) - 1.1)
+		return (1);
+	return(0);
+}
+
 int key_hook(int keycode, t_data *data)
 {
     t_game_data *g_data;
-    double oldplane_x;
-    double olddir_x;
+    double		oldplane_x;
+    double		olddir_x;
+    double		new_pos_x;
+	double		new_pos_y;
 
+	new_pos_x = 0;
+	new_pos_y = 0;
     g_data = data->game_data;
 
     if (keycode == ESC_KEY)
         ft_clear_and_exit(data);
     if (keycode == W_KEY)
     {
+		new_pos_x = g_data->pos_x + g_data->dir_x * 1;
+        new_pos_y = g_data->pos_y + g_data->dir_y * 1;
+		if (move_possible(data, new_pos_x, new_pos_y))
+			return 1;
         g_data->pos_x += g_data->dir_x * 1;
         g_data->pos_y += g_data->dir_y * 1;
     }
     else if (keycode == A_KEY)
     {
+		new_pos_x = g_data->pos_x + g_data->plane_x * 1;
+        new_pos_y = g_data->pos_y + g_data->plane_y * 1;
+		if (move_possible(data, new_pos_x, new_pos_y))
+			return 1;
         g_data->pos_x += g_data->plane_x * 1;
         g_data->pos_y += g_data->plane_y * 1;
     }
     else if (keycode == S_KEY)
     {
+		new_pos_x = g_data->pos_x - g_data->dir_x * 1;
+        new_pos_y = g_data->pos_y - g_data->dir_y * 1;
+		if (move_possible(data, new_pos_x, new_pos_y))
+			return 1;
         g_data->pos_x -= g_data->dir_x * 1;
         g_data->pos_y -= g_data->dir_y * 1;
     }
     else if (keycode == D_KEY)
     {
+		new_pos_x = g_data->pos_x - g_data->plane_x * 1;
+        new_pos_y = g_data->pos_y - g_data->plane_y * 1;
+		if (move_possible(data, new_pos_x, new_pos_y))
+			return 1;
         g_data->pos_x -= g_data->plane_x * 1;
         g_data->pos_y -= g_data->plane_y * 1;
     }
@@ -318,17 +350,17 @@ void init_orientation_ns(t_game_data *g_data, t_parse *parse)
 {
     if (parse->orientation == 'N')
     {
-        g_data->dir_x = 0;
-        g_data->dir_y = -1;
-        g_data->plane_x = 0.66;
-        g_data->plane_y = 0;
+        g_data->dir_x = 1;
+        g_data->dir_y = 0;
+        g_data->plane_x = 0;
+        g_data->plane_y = 0.66;
     }
     if (parse->orientation == 'S')
     {
-        g_data->dir_x = 0;
-        g_data->dir_y = 1;
-        g_data->plane_x = -0.66;
-        g_data->plane_y = 0;
+        g_data->dir_x = -1;
+        g_data->dir_y = 0;
+        g_data->plane_x = 0;
+        g_data->plane_y = -0.66;
     }
 }
 
@@ -336,17 +368,17 @@ void init_orientation_ew(t_game_data *g_data, t_parse *parse)
 {
     if (parse->orientation == 'E')
     {
-        g_data->dir_x = 1;
-        g_data->dir_y = 0;
-        g_data->plane_x = 0;
-        g_data->plane_y = 0.66;
+        g_data->dir_x = 0;
+        g_data->dir_y = 1;
+        g_data->plane_x = -0.66;
+        g_data->plane_y = 0;
     }
     if (parse->orientation == 'W')
     {
-        g_data->dir_x = -1;
-        g_data->dir_y = 0;
-        g_data->plane_x = 0;
-        g_data->plane_y = -0.66;
+        g_data->dir_x = 0;
+        g_data->dir_y = -1;
+        g_data->plane_x = 0.66;
+        g_data->plane_y = 0;
     }
 }
 
@@ -385,14 +417,8 @@ t_parse *init_parsing_data(void)
     parse->color_f = 0x008000;
     parse->player[0] = 12;
     parse->player[1] = 12;
-    parse->f[0] = -1;
-    parse->f[1] = -1;
-    parse->f[2] = -1;
-    parse->c[0] = -1;
-    parse->c[1] = -1;
-    parse->c[2] = -1;
     parse->orientation = 'N';
-    parse->map = malloc(sizeof(char *) * (mapHeight + 1));
+    parse->map = malloc((mapHeight + 2) * sizeof(char *));
     parse->map[0] = ft_strdup("111111111111111111111111");
     i = 1;
     while (i < 24)
@@ -401,6 +427,7 @@ t_parse *init_parsing_data(void)
         i++;
     }
     parse->map[i] = ft_strdup("111111111111111111111111");
+	parse->map[i + 1] = 0;
 	return (parse);
 }
 

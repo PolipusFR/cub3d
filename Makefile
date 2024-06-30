@@ -6,7 +6,7 @@
 #    By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/20 19:21:06 by lsabatie          #+#    #+#              #
-#    Updated: 2024/06/29 19:28:00 by lsabatie         ###   ########.fr        #
+#    Updated: 2024/06/30 17:52:03 by lsabatie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS        :=      utils/ft_atoi.c \
                         utils/ft_strcmp.c \
                         utils/ft_strlen.c \
                         utils/ft_strncmp.c \
+                        utils/ft_tablen.c \
                         utils/get_next_line.c \
                         utils/get_next_line_utils.c \
                         utils/ft_strdup.c \

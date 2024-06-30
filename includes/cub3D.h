@@ -48,8 +48,6 @@ typedef struct s_parse
 {
 	char			**map;
 	double			player[2];
-	int				f[3];
-	int				c[3];
 	unsigned long	color_f;
 	unsigned long	color_c;
 	char			orientation;
@@ -132,6 +130,7 @@ int		get_texnum(t_draw_calc *draw);
 
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
+int		ft_tablen(char **tab);
 void 	clear_textures(void *mlx, t_texture *text);
 
 ////////////////	UTILS		////////////////////
