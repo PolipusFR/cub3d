@@ -435,27 +435,35 @@ int main(int ac, char **av)
 {
     t_data data;
     t_parse *parse;
+	char	*status;
 
-    if (ac == 2 && check_args(av[1]) != 0)
-    {
-        parse = init_parsing_data();
-        // replace manual_parsing() with start_parsing(&parse);
-        // check_valid_map();
-        data.mlx_ptr = mlx_init();
-        data.win_ptr = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Cub3D");
-        data.parse = parse;
-        data.game_data = init_game_data(&data);
-        if (!data.game_data)
-            ft_clear_and_exit(&data);
-        data.texture = get_textures(data.mlx_ptr, parse);
-        if (!data.texture)
-            ft_clear_and_exit(&data);
-        mlx_hook(data.win_ptr, 33, 1l << 17, ft_clear_and_exit, &data);
-        mlx_key_hook(data.win_ptr, key_hook, &data);
-        mlx_loop_hook(data.mlx_ptr, render, &data);
-        mlx_loop(data.mlx_ptr);
-        ft_clear_and_exit(&data);
-    }
+
+	status = parsing(av[1]);
+	if (status != NULL)
+	{
+		printf(BRED"Error\n"RESET""BMAG"\t%s"RESET, status);
+		return (0);
+	}
+//    if (ac == 2 && check_args(av[1]) != 0)
+//    {
+//        parse = init_parsing_data();
+//        // replace manual_parsing() with start_parsing(&parse);
+//        // check_valid_map();
+//        data.mlx_ptr = mlx_init();
+//        data.win_ptr = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Cub3D");
+//        data.parse = parse;
+//        data.game_data = init_game_data(&data);
+//        if (!data.game_data)
+//            ft_clear_and_exit(&data);
+//        data.texture = get_textures(data.mlx_ptr, parse);
+//        if (!data.texture)
+//            ft_clear_and_exit(&data);
+//        mlx_hook(data.win_ptr, 33, 1l << 17, ft_clear_and_exit, &data);
+//        mlx_key_hook(data.win_ptr, key_hook, &data);
+//        mlx_loop_hook(data.mlx_ptr, render, &data);
+//        mlx_loop(data.mlx_ptr);
+//        ft_clear_and_exit(&data);
+//    }
     return (0);
 }
 

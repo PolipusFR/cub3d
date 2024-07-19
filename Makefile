@@ -12,7 +12,7 @@
 
 NAME     := cub3D
 CC       := gcc
-FLAGS    := -Wall -Wextra -Werror -g3
+FLAGS    := -g3
 HEADER   := includes/cub3D.h
 
 SRCS        :=      utils/ft_atoi.c \
@@ -22,10 +22,14 @@ SRCS        :=      utils/ft_atoi.c \
                         utils/ft_strncmp.c \
                         utils/ft_tablen.c \
                         utils/get_next_line.c \
+                        utils/ft_strnstr.c \
                         utils/get_next_line_utils.c \
                         utils/ft_strdup.c \
+                        utils/ft_substr.c \
                         src/main.c \
                         src/main_utils.c \
+                        src/parsing.c \
+                        src/remove_whitespace.c \
 
                           
 OBJS        := $(SRCS:.c=.o)

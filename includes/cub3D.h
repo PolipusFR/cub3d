@@ -32,6 +32,29 @@
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
 
+#define BBLK "\e[1;30m"
+#define BRED "\e[1;31m"
+#define BGRN "\e[1;32m"
+#define BYEL "\e[1;33m"
+#define BBLU "\e[1;34m"
+#define BMAG "\e[1;35m"
+#define BCYN "\e[1;36m"
+#define BWHT "\e[1;37m"
+
+#define RESET "\e[0m"
+
+
+//Regular underline text
+#define UBLK "\e[2;30m"
+#define URED "\e[2;31m"
+#define UGRN "\e[2;32m"
+#define UYEL "\e[2;33m"
+#define UBLU "\e[3;34m"
+#define UMAG "\e[2;35m"
+#define UCYN "\e[2;36m"
+#define UWHT "\e[2;37m"
+
+
 typedef struct s_texture
 {
 	void	*img;
@@ -154,5 +177,17 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_strlen(char *str);
 int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
+char	*ft_strdup(const char *s1);
+
+
+
+/*Parsing*/
+char	*parsing(char *path);
+char	*ft_strnstr(const char *big, const char *little, size_t len);
+char	*ft_substr(char *s, unsigned int start, size_t len);
+int		is_charset(char s, const char *charset);
+char	*remove_whitespace(char *line, char *end);
+
+
 
 #endif
