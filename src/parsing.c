@@ -21,16 +21,9 @@
  *
  * NO | SO | WE | EA | F | C
 
- NO | SO | WE | EA --> Chemin vers les texture
  	Couleur xxx,xxx,xxx | RGB
 
-	Tout est obligatoire, a faire dans l'odre de lecture en vrai
-	Une ligne une info. a part si elle est vide
-
- 	Faire un RM char jusqu'a une un des char en string en param
-
-Get la ligne, chopper l'indentifiant, call la fonction approprier, si identifiant non reconnue toz
- 	 Si ligne vide, beh osef
+	Pas sur pour le `./`
 
 	Pour les couleur :
 		rm jusqu'a '0123456789', Tout ce qui est apres la string est return pour etude,
@@ -49,7 +42,6 @@ Get la ligne, chopper l'indentifiant, call la fonction approprier, si identifian
 01NWES.0123456789 --> RECHERCHE d'identifiant jusqua'a un de ces char
 
 			"NO", "SO", "WE", "EA", "F", "C"	"NSWEFC"
-
  */
 
 int	is_charset(char s, const char *charset)
@@ -80,6 +72,20 @@ void	init_struct(t_parse *game)
 	game->s = NULL;
 	game->e = NULL;
 	game->w = NULL;
+}
+
+void	free_struct(t_parse *game)
+{
+	if (game->map != NULL)
+		free(game->map);
+	if (game->n != NULL)
+		free(game->n);
+	if (game->s != NULL)
+		free(game->s);
+	if (game->e != NULL)
+		free(game->e);
+	if (game->w != NULL)
+		free(game->w);
 }
 
 char	*is_full_game(t_parse *game)
@@ -151,29 +157,17 @@ int	texture_case(char *line, char *id, t_parse *game)
 
 	newline = remove_whitespace(line, ".0123456789");
 	i = 2;
-
 	if (newline[i] != '.' || newline[i + 1] != '/')
 		return (1);
 	if (ft_strcmp(id, "NO") == 0)
-	{
-		game->n = ft_substr(newline, 2, ft_strlen(line) - 4);
-		return (0);
-	}
-	if (ft_strcmp(id, "SO") == 0)
-	{
-		game->s = ft_substr(newline, 2, ft_strlen(line) - 4);
-		return (0);
-	}
-	if (ft_strcmp(id, "WE") == 0)
-	{
-		game->w = ft_substr(newline, 2, ft_strlen(line) - 4);
-		return (0);
-	}
+		game->n = ft_substr(newline, 2, ft_strlen(line) - 2);
+	else if (ft_strcmp(id, "SO") == 0)
+		game->s = ft_substr(newline, 2, ft_strlen(line) - 2);
+	else if (ft_strcmp(id, "WE") == 0)
+		game->w = ft_substr(newline, 2, ft_strlen(line) - 2);
 	if (ft_strcmp(id, "EA") == 0)
-	{
-		game->e = ft_substr(newline, 2, ft_strlen(line) - 4);
-		return (0);
-	}
+		game->e = ft_substr(newline, 2, ft_strlen(line) - 2);
+	free(newline);
 	return (0);
 }
 
@@ -200,7 +194,10 @@ char	*get_value(t_parse *game, int fd)
 
 	line = get_next_line(fd);
 	while (line != NULL && line[0] == '\n')
+	{
+		free(line);
 		line = get_next_line(fd);
+	}
 	while (line != NULL)
 	{
 		id = get_id(line);
@@ -210,9 +207,13 @@ char	*get_value(t_parse *game, int fd)
 			return (status);
 		else if (status != NULL && is_full_game(game) == NULL)
 			printf("Apply map parsing");
+		free(line);
 		line = get_next_line(fd);
 		while (line != NULL && line[0] == '\n')
+		{
+			free(line);
 			line = get_next_line(fd);
+		}
 	}
 	return (NULL);
 }
@@ -234,5 +235,6 @@ char	*parsing(char *path)
 		return (status);
 	close(fd);
 	print_struct(&game);
+	free_struct(&game);
 	return (NULL);
 }

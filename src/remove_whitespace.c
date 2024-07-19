@@ -38,7 +38,7 @@ char	*fill_result(char *result, char *line, char *end)
 			i++;
 		}
 	}
-	while (line[i] != '\0')
+	while (line[i] != '\0' && line[i] != '\n')
 	{
 		result[j] = line[i];
 		j++;
