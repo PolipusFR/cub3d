@@ -22,7 +22,7 @@ void draw_line(int x, int draw_start, int draw_end, t_data *data, t_draw_calc *d
     y = 0;
     while (y < draw_start)
     {
-        my_mlx_pixel_put(data->game_data->img_ptr, x, y, data->parse->color_c);
+//        my_mlx_pixel_put(data->game_data->img_ptr, x, y, data->parse->color_c);
         y++;
     }
     while (y < draw_end)
@@ -32,7 +32,7 @@ void draw_line(int x, int draw_start, int draw_end, t_data *data, t_draw_calc *d
     }
     while (y < HEIGHT)
     {
-        my_mlx_pixel_put(data->game_data->img_ptr, x, y, data->parse->color_f);
+//        my_mlx_pixel_put(data->game_data->img_ptr, x, y, data->parse->color_f);
         y++;
     }
 }
@@ -413,8 +413,8 @@ t_parse *init_parsing_data(void)
     parse->s = "pics/greystone.xpm";
     parse->e = "pics/purplestone.xpm";
     parse->w = "pics/redbrick.xpm";
-    parse->color_c = 0x00FFFF;
-    parse->color_f = 0x008000;
+//    parse->color_c = 0x00FFFF;
+//    parse->color_f = 0x008000;
     parse->player[0] = 12;
     parse->player[1] = 12;
     parse->orientation = 'N';

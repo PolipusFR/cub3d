@@ -1,1 +1,16 @@
-EA ./p          p/texture.xml
+EA							./p4/texture.xml
+NO       ./p1/texture.xml
+
+SO ./p1/texture.xml
+
+WE 		   	  	 	 	 	  ./3/texture.xml
+
+
+F 155,0,01
+C 010,0,0
+
+11111
+10S01
+11111
+
+1

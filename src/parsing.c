@@ -1,107 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 11:21:50 by sben-rho          #+#    #+#             */
+/*   Updated: 2024/07/30 11:21:51 by sben-rho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3D.h"
 #include <stdio.h>
 
-
-/*
-		typedef struct s_parse
-		{
-			char			**map; MAP (attention au `orientation` a replace  par 0
-			double			player[2]; Coord de pop
-			unsigned long	color_f; Color Floor
-			unsigned long	color_c; Color Sol
-			char			orientation; Orientation
-			char			*n; Texture
-			char			*s; Texture
-			char			*e; Texture
-			char			*w; Texture
-		}				t_parse;
- */
-
-/*
- *
- * NO | SO | WE | EA | F | C
-
- 	Couleur xxx,xxx,xxx | RGB
-
-	Pas sur pour le `./`
-
-	Pour les couleur :
-		rm jusqu'a '0123456789', Tout ce qui est apres la string est return pour etude,
-		Atoi de mes 3 merde
-		Si un des 3 nombre est au dessus de 255, toz
-		Check FDF pour l'hexa couleur
-
-	Pour la map :
- 		On vois sa plus tard akhy | 0,1,N,W,E,S
-
-	Pour orrientation, si on essaye de l'assigner or qu'il est deja assigner sa degage
-
-	Pour les coord rien de complexe, c'est coller a l'orientation
-
-"NO", "SO", "WE", "EA", "F", "C"- All identifiant
-01NWES.0123456789 --> RECHERCHE d'identifiant jusqua'a un de ces char
-
-			"NO", "SO", "WE", "EA", "F", "C"	"NSWEFC"
- */
-
-int	is_charset(char s, const char *charset)
+void	print_struct(t_parse *game)
 {
 	int	i;
 
 	i = 0;
-	if (s == '\0')
-		return (1);
-	while (charset[i] != '\0')
-	{
-		if (s == charset[i])
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-void	init_struct(t_parse *game)
-{
-	game->map = NULL;
-	game->player[0] = -1;
-	game->player[1] = -1;
-	game->color_c = 0;
-	game->color_f = 0;
-	game->orientation = '\0';
-	game->n = NULL;
-	game->s = NULL;
-	game->e = NULL;
-	game->w = NULL;
-}
-
-void	free_struct(t_parse *game)
-{
-	if (game->map != NULL)
-		free(game->map);
-	if (game->n != NULL)
-		free(game->n);
-	if (game->s != NULL)
-		free(game->s);
-	if (game->e != NULL)
-		free(game->e);
-	if (game->w != NULL)
-		free(game->w);
-}
-
-char	*is_full_game(t_parse *game)
-{
-	if (game->color_f == 0 || game->color_c == 0)
-		return ("Missing colors");
-	if (!game->w || !game->s || !game->e || !game->n)
-		return ("Missing Texture");
-	if (game->orientation == '\0' || (game->player[0] == -1 && game->player[1] == -1))
-		return ("Missing Spawn point");
-	return (NULL);
-}
-
-void	print_struct(t_parse *game)
-{
-	printf(BRED"~~~~~~Game~~~~~~"RESET"\n");
+	printf(BRED"\n======Game======"RESET"\n");
 	if (game->n != NULL)
 		printf(BMAG"Texture :"RESET"\t"BYEL"N:'%s'\n", game->n);
 	else
@@ -118,79 +35,62 @@ void	print_struct(t_parse *game)
 		printf("\t\t"BYEL"E:'%s'\n\n"RESET, game->e);
 	else
 		printf("\t\t"BRED"E:'%s'\n\n"RESET, game->e);
-
 	printf(BMAG"Orientation :"RESET"\t"BYEL"'%c'\n\n"RESET, game->orientation);
-	printf(BMAG"Color :"RESET"\t\t"BYEL"Floor :'%lu'\n"RESET, game->color_f);
-	printf("\t\t"BYEL"Sky :'%lu'\n\n"RESET, game->color_c);
+	printf(BMAG"Color :"RESET"\t\t"BYEL"Floor :'%d | %d | %d'\n"RESET, game->color_f[0], game->color_f[1], game->color_f[2]);
+	printf("\t\t"BYEL"Sky :'%d | %d | %d'\n\n"RESET, game->color_c[0], game->color_c[1], game->color_c[2]);
 	printf(BMAG"Spawn :"RESET"\t\t"BYEL"'%.2lf' | '%.2lf'\n"RESET, game->player[0], game->player[1]);
-}
-
-int	check_file(char *path)
-{
-	if (!path || path[0] == '\0')
-		return (1);
-	if (ft_strlen(path) <= 4)
-		return (1);
-	if (ft_strnstr(path, ".cub", ft_strlen(path)) == NULL)
-		return (1);
-	return (0);
-}
-
-char	*get_id(char *line)
-{
-	int	i;
-	int	save;
-
-	i = 0;
-	while (is_charset(line[i], "\f\t\n\r\v ") == 1 && line[i] != '\0')
+	printf(BMAG"Map :"BYEL"\n");
+	while (game->map != NULL && game->map[i] != NULL)
+	{
+		printf("\t%s\n", game->map[i]);
 		i++;
-	save = i;
-	while (is_charset(line[i], "\f\t\n\r\v ") == 0 && line[i] != '\0')
-		i++;
-	return (ft_substr(line, save, i - save));
-}
-
-int	texture_case(char *line, char *id, t_parse *game)
-{
-	char	*newline;
-	int		i;
-
-	newline = remove_whitespace(line, ".0123456789");
-	i = 2;
-	if (newline[i] != '.' || newline[i + 1] != '/')
-		return (1);
-	if (ft_strcmp(id, "NO") == 0)
-		game->n = ft_substr(newline, 2, ft_strlen(line) - 2);
-	else if (ft_strcmp(id, "SO") == 0)
-		game->s = ft_substr(newline, 2, ft_strlen(line) - 2);
-	else if (ft_strcmp(id, "WE") == 0)
-		game->w = ft_substr(newline, 2, ft_strlen(line) - 2);
-	if (ft_strcmp(id, "EA") == 0)
-		game->e = ft_substr(newline, 2, ft_strlen(line) - 2);
-	free(newline);
-	return (0);
+	}
+	printf(RESET"\n");
 }
 
 char	*apply_case(char *line, char *id, t_parse *game)
 {
-	if (ft_strcmp(id, "NO") == 0 || ft_strcmp(id, "SO") == 0)
-		texture_case(line, id, game);
-	else if (ft_strcmp(id, "WE") == 0 || ft_strcmp(id, "EA") == 0)
-		texture_case(line, id, game);
-	else if (ft_strcmp(id, "F") == 0)
-		printf(BGRN"Value declared is F"RESET);
+	int	status;
+
+	if (ft_strcmp(id, "NO") == 0 || ft_strcmp(id, "SO") == 0
+		|| ft_strcmp(id, "WE") == 0 || ft_strcmp(id, "EA") == 0)
+		status = texture_case(line, id, game);
 	else if (ft_strcmp(id, "C") == 0)
-		printf(BGRN"Value declared is C"RESET);
+		status = color_case(line, game->color_c);
+	else if (ft_strcmp(id, "F") == 0)
+		status = color_case(line, game->color_f);
 	else
 		return ("Invalid identifier\n");
+	if (status == 1)
+		return ("Invalid format for path, check it.\n");
+	if (status == 2)
+		return ("Invalid format for color, check it.\n");
+	if (status == 3)
+		return ("Two times same identifier, check it\n");
 	return (NULL);
 }
+
+int	is_real_id(char *id)
+{
+	if (ft_strcmp(id, "NO") == 0 || ft_strcmp(id, "SO") == 0
+		|| ft_strcmp(id, "WE") == 0 || ft_strcmp(id, "EA") == 0
+		|| ft_strcmp(id, "C") == 0 || ft_strcmp(id, "F") == 0)
+	{
+		free(id);
+		return (0);
+	}
+	free(id);
+	return (1);
+}
+
+// Fonction trop longue en dessous
 
 char	*get_value(t_parse *game, int fd)
 {
 	char	*line;
 	char	*id;
 	char	*status;
+	int		full;
 
 	line = get_next_line(fd);
 	while (line != NULL && line[0] == '\n')
@@ -201,12 +101,26 @@ char	*get_value(t_parse *game, int fd)
 	while (line != NULL)
 	{
 		id = get_id(line);
+		if (is_full_game(game, 1) != NULL)
+			full = 1;
+		else
+			full = 0;
 		status = apply_case(line, id, game);
-		free(id);
-		if (status != NULL && is_full_game(game) != NULL)
+		if (status != NULL && full == 1)
+		{
+			free(line);
+			free(id);
 			return (status);
-		else if (status != NULL && is_full_game(game) == NULL)
-			printf("Apply map parsing");
+		}
+		else if (status != NULL && full == 0)
+		{
+			if (is_real_id(id) == 0)
+				return (status);
+			if (map_case(game, line, fd) == 1)
+				return ("--> Invalid Map\n");
+			return (NULL);
+		}
+		free(id);
 		free(line);
 		line = get_next_line(fd);
 		while (line != NULL && line[0] == '\n')
@@ -226,15 +140,25 @@ char	*parsing(char *path)
 
 	init_struct(&game);
 	if (check_file(path) == 1)
-		return ("--> Invalid File, need a .cub file.");
+		return ("--> Invalid File, need a .cub file.\n");
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		return ("Invalid file or permission.");
+		return ("Invalid file or permission.\n");
 	status = get_value(&game, fd);
-	if (status != NULL)
-		return (status);
-	close(fd);
 	print_struct(&game);
+	if (status != NULL)
+	{
+		status = is_full_game(&game, 0);
+		free_struct(&game);
+		close(fd);
+		return (status);
+	}
+	close(fd);
+	if (is_full_game(&game, 0) != NULL)
+	{
+		free_struct(&game);
+		return ("--> Missing information\n");
+	}
 	free_struct(&game);
 	return (NULL);
 }

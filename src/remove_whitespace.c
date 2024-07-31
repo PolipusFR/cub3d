@@ -1,6 +1,14 @@
-//
-// Created by sben-rho on 7/19/24.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   remove_whitespace.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 11:21:55 by sben-rho          #+#    #+#             */
+/*   Updated: 2024/07/30 11:22:01 by sben-rho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
@@ -48,7 +56,7 @@ char	*fill_result(char *result, char *line, char *end)
 	return (result);
 }
 
-char *remove_whitespace(char *line, char *end)
+char	*remove_whitespace(char *line, char *end)
 {
 	int		count;
 	char	*result;

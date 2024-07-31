@@ -4,7 +4,7 @@
 
 #include "../includes/cub3D.h"
 
-static char     *search(const char *big, const char *little, size_t len, char *cpy)
+static char     *search(char *big, char *little, size_t len, char *cpy)
 {
 	size_t                  i;
 	unsigned int    k;
@@ -30,7 +30,7 @@ static char     *search(const char *big, const char *little, size_t len, char *c
 	return (NULL);
 }
 
-char    *ft_strnstr(const char *big, const char *little, size_t len)
+char    *ft_strnstr(char *big, char *little, size_t len)
 {
 	char                    *bigcopy;
 

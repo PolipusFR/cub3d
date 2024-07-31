@@ -71,8 +71,8 @@ typedef struct s_parse
 {
 	char			**map;
 	double			player[2];
-	unsigned long	color_f;
-	unsigned long	color_c;
+	int			color_f[3];
+	int			color_c[3];
 	char			orientation;
 	char			*n;
 	char			*s;
@@ -177,17 +177,36 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_strlen(char *str);
 int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
-char	*ft_strdup(const char *s1);
 
 
 
 /*Parsing*/
 char	*parsing(char *path);
-char	*ft_strnstr(const char *big, const char *little, size_t len);
+char	*ft_strnstr(char *big, char *little, size_t len);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 int		is_charset(char s, const char *charset);
 char	*remove_whitespace(char *line, char *end);
 
+
+void	init_struct(t_parse *game);
+void	free_struct(t_parse *game);
+char	*is_full_game(t_parse *game, int i);
+int		check_file(char *path);
+char	*get_id(char *line);
+int		texture_case(char *line, char *id, t_parse *game);
+
+int	check_color(char *line);
+int check_values(int game[3]);
+int	color_case(char *line, int game[3]);
+
+int	map_case(t_parse *game, char *line, int fd);
+void	free_tab(char **tab);
+char	*fill_line(char *line, int len);
+int	get_longest_string(char **map);
+
+
+int	check_top(char **map, int x, int y);
+int	check_left(char *line, int x);
 
 
 #endif
