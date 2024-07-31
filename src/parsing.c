@@ -145,10 +145,10 @@ char	*parsing(char *path)
 	if (fd == -1)
 		return ("Invalid file or permission.\n");
 	status = get_value(&game, fd);
-	print_struct(&game);
 	if (status != NULL)
 	{
-		status = is_full_game(&game, 0);
+		if (ft_strcmp(status, "Invalid identifier\n") == 0)
+			status = is_full_game(&game, 0);
 		free_struct(&game);
 		close(fd);
 		return (status);
@@ -159,6 +159,7 @@ char	*parsing(char *path)
 		free_struct(&game);
 		return ("--> Missing information\n");
 	}
+	print_struct(&game);
 	free_struct(&game);
 	return (NULL);
 }

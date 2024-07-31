@@ -132,6 +132,7 @@ int	map_case(t_parse *game, char *line, int fd)
 		line = get_next_line(fd);
 		i++;
 	}
+	printf("\nMap loaded\n");
 	if (check_map_bottom(game) == 1)
 		return (1);
 	len = get_longest_string(game->map);

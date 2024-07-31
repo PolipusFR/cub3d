@@ -47,13 +47,13 @@ void	free_struct(t_parse *game)
 char	*is_full_game(t_parse *game, int i)
 {
 	if (game->color_f[0] == -1 || game->color_c[0] == -1)
-		return ("Missing colors\n");
+		return ("Missing element\n");
 	if (!game->w || !game->s || !game->e || !game->n)
-		return ("Missing Texture\n");
+		return ("Missing element\n");
 	if (i == 0)
 	{
 		if (game->player[0] == -1 || game->player[1] == -1)
-			return ("Missing player\n");
+			return ("Missing element\n");
 	}
 	return (NULL);
 }
