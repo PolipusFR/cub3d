@@ -209,4 +209,8 @@ int	check_top(char **map, int x, int y);
 int	check_left(char *line, int x);
 
 
+
+int	check_extension(char *path, char *ex);
+int	check_map_right(t_parse *game);
+
 #endif

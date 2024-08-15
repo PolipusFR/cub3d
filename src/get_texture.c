@@ -29,27 +29,32 @@ int	texture_case(char *line, char *id, t_parse *game)
 {
 	char	*newline;
 	int		i;
+	char	*temp;
 
 	newline = remove_whitespace(line, ".0123456789");
 	i = 2;
 	if (newline[i] != '.' || newline[i + 1] != '/')
-	{
-		free(newline);
 		return (1);
-	}
 	if (check_if_copy(id, game) == 1)
 	{
 		free(newline);
 		return (3);
 	}
+	temp = ft_substr(newline, 2, ft_strlen(newline) - 2);
+	if (check_extension(temp, ".xpm") == 1)
+	{
+		free(newline);
+		free(temp);
+		return (1);
+	}
 	if (ft_strcmp(id, "NO") == 0)
-		game->n = ft_substr(newline, 2, ft_strlen(newline) - 2);
+		game->n = temp;
 	else if (ft_strcmp(id, "SO") == 0)
-		game->s = ft_substr(newline, 2, ft_strlen(newline) - 2);
+		game->s = temp;
 	else if (ft_strcmp(id, "WE") == 0)
-		game->w = ft_substr(newline, 2, ft_strlen(newline) - 2);
+		game->w = temp;
 	if (ft_strcmp(id, "EA") == 0)
-		game->e = ft_substr(newline, 2, ft_strlen(newline) - 2);
+		game->e = temp;
 	free(newline);
 	return (0);
 }

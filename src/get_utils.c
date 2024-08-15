@@ -58,13 +58,36 @@ char	*is_full_game(t_parse *game, int i)
 	return (NULL);
 }
 
+int	check_extension(char *path, char *ex)
+{
+	int	lenex;
+	int	lenpath;
+
+	if (!path || path[0] == '\0')
+		return (1);
+	lenpath = ft_strlen(path);
+	lenex = ft_strlen(ex);
+	if (lenpath <= lenex)
+		return (1);
+	while (lenex >= 0)
+	{
+		if (path[lenpath] != ex[lenex])
+			return (1);
+		lenpath--;
+		lenex--;
+	}
+	return (0);
+}
+
 int	check_file(char *path)
 {
 	if (!path || path[0] == '\0')
 		return (1);
 	if (ft_strlen(path) <= 4)
 		return (1);
-	if (ft_strnstr(path, ".cub", ft_strlen(path)) == NULL)
+//	if (ft_strnstr(path, ".cub", ft_strlen(path)) == NULL)
+//		return (1);
+	if (check_extension(path, ".cub") == 1)
 		return (1);
 	return (0);
 }

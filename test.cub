@@ -1,16 +1,19 @@
-EA							./p4/texture.xml
-NO       ./p1/texture.xml
+EA				./AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa.xpm
+NO       ./p1/texture.xpm
 
-SO ./p1/texture.xml
-
-WE 		   	  	 	 	 	  ./3/texture.xml
+SO 		   	  	 	 	 	  ./p2/texture.xpm
 
 
-F 155,0,01
-C 010,0,0
+WE 		   	  	 	 	 	  ./3/texture.xpm
 
-11111
-10S01
-11111
 
-1
+
+
+F 5,01,5
+C 0,0,0
+
+1111
+1S01
+1111
+1001
+1111

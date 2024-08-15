@@ -12,7 +12,7 @@
 
 NAME     := cub3D
 CC       := gcc
-FLAGS    :=  -g3
+FLAGS    := -g3
 
 HEADER   := includes/cub3D.h
 

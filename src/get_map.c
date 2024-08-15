@@ -12,15 +12,36 @@
 
 #include "../includes/cub3D.h"
 
-char	**update_map(t_parse *game, char *line)
+char	**update_map(t_parse *game, char *line, int fd, int *status)
 {
 	int		i;
 	char	**new_map;
 	char	*temp;
 
 	i = 0;
+	if (line[0] == '\n')
+	{
+		while (line != NULL && line[0] == '\n')
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
+		if (line == NULL || line[0] == '\0')
+		{
+			*status = 1;
+			free(line);
+			return (game->map);
+		}
+		else
+		{
+			free(line);
+			*status = 0;
+			free_tab(game->map);
+			return (NULL);
+		}
+	}
 	temp = ft_substr(line, 0, ft_strlen(line) - 1);
-	if (temp == NULL || temp[0] == '\0' || temp[0] == '\n')
+	if (temp == NULL || temp[0] == '\0')
 	{
 		free(temp);
 		free_tab(game->map);
@@ -116,24 +137,50 @@ int	check_map_bottom(t_parse *game)
 	return (0);
 }
 
+int	check_map_right(t_parse *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (game->map[i] != NULL)
+	{
+		j = 0;
+		while (game->map[i][j] != '\0')
+		{
+			if (game->map[i][j] == '0')
+			{
+				if (game->map[i][j + 1] == ' ' || game->map[i][j + 1] == '\0')
+					return (1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	map_case(t_parse *game, char *line, int fd)
 {
 	int	i;
 	int	len;
+	int	status;
 
 	i = 0;
+	status = -1;
 	while (line != NULL)
 	{
 		if (check_map_line(line, "01NWSE \n", game, i) == 1)
 			return (1);
-		game->map = update_map(game, line);
-		if (game->map == NULL)
+		game->map = update_map(game, line, fd, &status);
+		if (status == 1)
+			break;
+		else if (game->map == NULL && status == 0)
 			return (1);
 		line = get_next_line(fd);
 		i++;
 	}
-	printf("\nMap loaded\n");
-	if (check_map_bottom(game) == 1)
+	if (check_map_bottom(game) == 1 || check_map_right(game) == 1)
 		return (1);
 	len = get_longest_string(game->map);
 	i = 0;
