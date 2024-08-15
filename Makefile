@@ -6,7 +6,7 @@
 #    By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/20 19:21:06 by lsabatie          #+#    #+#              #
-#    Updated: 2024/06/30 17:52:03 by lsabatie         ###   ########.fr        #
+#    Updated: 2024/08/15 17:48:45 by lsabatie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,12 @@ SRCS        :=      utils/ft_atoi.c \
                         utils/get_next_line_utils.c \
                         utils/ft_strdup.c \
                         src/main.c \
+                        src/textures.c \
+                        src/init.c \
+                        src/render.c \
+                        src/calc.c \
+                        src/movement.c \
+                        src/movement_utils.c \
                         src/main_utils.c \
 
                           

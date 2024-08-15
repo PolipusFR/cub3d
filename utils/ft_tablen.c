@@ -6,7 +6,7 @@
 /*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 16:22:20 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/06/30 19:00:33 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:16:58 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_tablen(char **tab)
 	int	i;
 
 	i = 0;
-	while(tab[i])
+	while (tab[i])
 		i++;
 	return (i);
 }

@@ -24,11 +24,14 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 
+# define MAP_HEIGHT 24
+# define MAP_HEIGHT 24 // rm once parsing ok
+
 # define ESC_KEY 65307
-# define W_KEY 122
-# define A_KEY 100
+# define W_KEY 119
+# define A_KEY 97
 # define S_KEY 115
-# define D_KEY 113
+# define D_KEY 100
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
 
@@ -76,16 +79,6 @@ typedef struct s_game_data
 	t_parse	*parse;
 }	t_game_data;
 
-typedef struct s_data
-{
-	void		*mlx_ptr;
-	void		*win_ptr;
-
-	t_parse		*parse;
-	t_game_data	*game_data;
-	t_texture	*texture;
-}				t_data;
-
 typedef struct s_color
 {
 	int				tex_num;
@@ -120,18 +113,49 @@ typedef struct s_draw_calc
 	int		wall_x;
 }		t_draw_calc;
 
-int		check_args(char *str);
-void	draw(t_data *data);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int		ft_clear_and_exit(t_data *data);
-int		get_pixel_from_texture(t_texture *texture, int tex_x, int tex_y);
-void	init_color(t_color *color);
-int		get_texnum(t_draw_calc *draw);
+typedef struct s_data
+{
+	void		*mlx_ptr;
+	void		*win_ptr;
 
-void	*ft_calloc(size_t count, size_t size);
-char	*ft_strdup(const char *s1);
-int		ft_tablen(char **tab);
-void 	clear_textures(void *mlx, t_texture *text);
+	t_parse		*parse;
+	t_game_data	*game_data;
+	t_texture	*texture;
+	t_draw_calc	*draw_data;
+}				t_data;
+
+int			check_args(char *str);
+void		draw(t_data *data);
+void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int			ft_clear_and_exit(t_data *data);
+int			get_pixel_from_texture(t_texture *texture, int tex_x, int tex_y);
+void		init_color(t_color *color);
+int			get_texnum(t_draw_calc *draw);
+
+t_texture	*get_textures(void *mlx, t_parse *parse);
+
+void		*ft_calloc(size_t count, size_t size);
+char		*ft_strdup(const char *s1);
+int			ft_tablen(char **tab);
+void		clear_textures(void *mlx, t_texture *text);
+
+t_parse		*init_parsing_data(void);
+t_game_data	*init_game_data(t_data *data);
+t_draw_calc	init_draw(void);
+
+void		calc_wall_height(t_draw_calc *draw);
+void		check_hit(t_draw_calc *draw, t_game_data *g_data);
+void		calc_step(t_draw_calc *draw, t_game_data *g_data);
+int			key_hook(int keycode, t_data *data);
+
+int			render(t_data *data);
+void		rotate(t_game_data *g_data, int direction,
+				double oldplane_x, double olddir_x);
+void		move_forward(t_game_data *g_data, t_data *data);
+void		move_left(t_game_data *g_data, t_data *data);
+void		move_backwards(t_game_data *g_data, t_data *data);
+void		move_right(t_game_data *g_data, t_data *data);
+int			move_possible(t_data *data, double new_pos_x, double new_pos_y);
 
 ////////////////	UTILS		////////////////////
 
@@ -139,20 +163,20 @@ void 	clear_textures(void *mlx, t_texture *text);
 #  define BUFFER_SIZE 42
 # endif
 
-int		get_string_size(char *buf);
-char	*fill_string(int fd, char *buf);
-int		check_newline(char *buf);
-char	*gnl_strjoin(char *s1, char *s2);
-void	buffer_reset(char *buf);
-int		gnl_strlen(const char *s);
-int		gnl_strlen_buff(char *str);
-char	*gnl_strdup(const char *s1);
-char	*get_next_line(int fd);
+int			get_string_size(char *buf);
+char		*fill_string(int fd, char *buf);
+int			check_newline(char *buf);
+char		*gnl_strjoin(char *s1, char *s2);
+void		buffer_reset(char *buf);
+int			gnl_strlen(const char *s);
+int			gnl_strlen_buff(char *str);
+char		*gnl_strdup(const char *s1);
+char		*get_next_line(int fd);
 
-int		ft_strncmp(const char *s1, const char *s2, int n);
-int		ft_strcmp(char *s1, char *s2);
-int		ft_strlen(char *str);
-int		ft_atoi(const char *str);
-char	**ft_split(char const *s, char c);
+int			ft_strncmp(const char *s1, const char *s2, int n);
+int			ft_strcmp(char *s1, char *s2);
+int			ft_strlen(char *str);
+int			ft_atoi(const char *str);
+char		**ft_split(char const *s, char c);
 
 #endif
