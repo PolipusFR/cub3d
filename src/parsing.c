@@ -40,9 +40,20 @@ void	print_struct(t_parse *game)
 	printf("\t\t"BYEL"Sky :'%d | %d | %d'\n\n"RESET, game->color_c[0], game->color_c[1], game->color_c[2]);
 	printf(BMAG"Spawn :"RESET"\t\t"BYEL"'%.2lf' | '%.2lf'\n"RESET, game->player[0], game->player[1]);
 	printf(BMAG"Map :"BYEL"\n");
+	int	j;
+	printf("\t\t");
 	while (game->map != NULL && game->map[i] != NULL)
 	{
-		printf("\t%s\n", game->map[i]);
+		j = 0;
+		while (game->map[i][j] != '\0')
+		{
+			if (game->map[i][j] == '1')
+				printf(BGRN"%c", game->map[i][j]);
+			else
+				printf(BRED"%c", game->map[i][j]);
+			j++;
+		}
+		printf("\n\t\t");
 		i++;
 	}
 	printf(RESET"\n");
