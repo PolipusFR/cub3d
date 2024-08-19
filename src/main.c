@@ -36,6 +36,7 @@ int	ft_clear_and_exit(t_data *data)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
+	free_struct(data->parse);
 	exit(0);
 }
 
@@ -58,21 +59,20 @@ int	main(int ac, char **av)
 			printf("Error\n\t%s", status);
 			return (0);
 		}
-		 data.mlx_ptr = mlx_init();
-		 data.win_ptr = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Cub3D");
-		 data.parse = &parse;
-		 data.game_data = init_game_data(&data);
-		 if (!data.game_data)
-		 	ft_clear_and_exit(&data);
-		 data.texture = get_textures(data.mlx_ptr, &parse);
-		 if (!data.texture)
-		 	ft_clear_and_exit(&data);
-		 mlx_hook(data.win_ptr, 33, 1l << 17, ft_clear_and_exit, &data);
-		 mlx_key_hook(data.win_ptr, key_hook, &data);
-		 mlx_loop_hook(data.mlx_ptr, render, &data);
-		 mlx_loop(data.mlx_ptr);
-		 ft_clear_and_exit(&data);
-		free_struct(&parse);
+		data.mlx_ptr = mlx_init();
+		data.win_ptr = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Cub3D");
+		data.parse = &parse;
+		data.game_data = init_game_data(&data);
+		if (!data.game_data)
+			ft_clear_and_exit(&data);
+		data.texture = get_textures(data.mlx_ptr, &parse);
+		if (!data.texture)
+			ft_clear_and_exit(&data);
+		mlx_hook(data.win_ptr, 33, 1l << 17, ft_clear_and_exit, &data);
+		mlx_key_hook(data.win_ptr, key_hook, &data);
+		mlx_loop_hook(data.mlx_ptr, render, &data);
+		mlx_loop(data.mlx_ptr);
+		ft_clear_and_exit(&data);
 	}
 	return (0);
 }
