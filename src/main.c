@@ -69,7 +69,7 @@ int	main(int ac, char **av)
 		if (!data.texture)
 			ft_clear_and_exit(&data);
 		mlx_hook(data.win_ptr, 33, 1l << 17, ft_clear_and_exit, &data);
-		mlx_key_hook(data.win_ptr, key_hook, &data);
+		mlx_hook(data.win_ptr, 02, 1L << 0, key_hook, &data);
 		mlx_loop_hook(data.mlx_ptr, render, &data);
 		mlx_loop(data.mlx_ptr);
 		ft_clear_and_exit(&data);
