@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:01:29 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/15 18:21:49 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:02:29 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw_line(int x, int draw_start, int draw_end, t_data *data)
 	y = 0;
 	while (y < draw_start)
 	{
-		my_mlx_pixel_put(data->game_data->img_ptr, x, y, data->parse->color_c);
+		my_mlx_pixel_put(data->game_data->img_ptr, x, y, data->parse->color_c[1]);
 		y++;
 	}
 	while (y < draw_end)
@@ -30,7 +30,7 @@ void	draw_line(int x, int draw_start, int draw_end, t_data *data)
 	}
 	while (y < HEIGHT)
 	{
-		my_mlx_pixel_put(data->game_data->img_ptr, x, y, data->parse->color_f);
+		my_mlx_pixel_put(data->game_data->img_ptr, x, y, data->parse->color_f[1]);
 		y++;
 	}
 }

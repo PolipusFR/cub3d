@@ -6,7 +6,7 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:50 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/07/30 11:21:51 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:10:19 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,34 +143,32 @@ char	*get_value(t_parse *game, int fd)
 	return (NULL);
 }
 
-char	*parsing(char *path)
+char	*parsing(char *path, t_parse *game)
 {
 	int		fd;
-	t_parse	game;
 	char	*status;
 
-	init_struct(&game);
+//	init_struct(game);
 	if (check_file(path) == 1)
 		return ("--> Invalid File, need a .cub file.\n");
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return ("Invalid file or permission.\n");
-	status = get_value(&game, fd);
+	status = get_value(game, fd);
 	if (status != NULL)
 	{
 		if (ft_strcmp(status, "Invalid identifier\n") == 0)
-			status = is_full_game(&game, 0);
-		free_struct(&game);
+			status = is_full_game(game, 0);
+		free_struct(game);
 		close(fd);
 		return (status);
 	}
 	close(fd);
-	if (is_full_game(&game, 0) != NULL)
+	if (is_full_game(game, 0) != NULL)
 	{
-		free_struct(&game);
+		free_struct(game);
 		return ("--> Missing information\n");
 	}
-	print_struct(&game);
-	free_struct(&game);
+	print_struct(game);
 	return (NULL);
 }

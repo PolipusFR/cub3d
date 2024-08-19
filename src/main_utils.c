@@ -57,11 +57,11 @@ int	get_texnum(t_draw_calc *draw)
 	{
 		if (draw->ray_dir_y > 0)
 		{
-			return (2);
+			return (3);
 		}
 		else
 		{
-			return (3);
+			return (2);
 		}
 	}
 	else

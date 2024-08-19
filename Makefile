@@ -6,7 +6,7 @@
 #    By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/20 19:21:06 by lsabatie          #+#    #+#              #
-#    Updated: 2024/08/19 14:58:11 by sben-rho         ###   ########.fr        #
+#    Updated: 2024/08/19 15:08:29 by sben-rho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,7 @@ FLAGS    := -g3
 
 HEADER   := includes/cub3D.h
 
-SRCS        :=    		utils/ft_atoi.c \
-                        utils/ft_strdup.c \
-                        src/main.c \
+SRCS        :=    		src/main.c \
                         src/textures.c \
                         src/init.c \
                         src/render.c \
@@ -46,6 +44,7 @@ SRCS        :=    		utils/ft_atoi.c \
 						src/get_map.c \
 						src/fill_map.c \
 						src/map_utils.c \
+
 
 OBJS        := $(SRCS:.c=.o)
 

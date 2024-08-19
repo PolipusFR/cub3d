@@ -29,9 +29,9 @@
 
 # define ESC_KEY 65307
 # define W_KEY 119
-# define A_KEY 97
+# define A_KEY 100
 # define S_KEY 115
-# define D_KEY 100
+# define D_KEY 97
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
 
@@ -205,7 +205,7 @@ char		**ft_split(char const *s, char c);
 
 
 /*Parsing*/
-char	*parsing(char *path);
+char	*parsing(char *path, t_parse *game);
 char	*ft_strnstr(char *big, char *little, size_t len);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 int		is_charset(char s, const char *charset);

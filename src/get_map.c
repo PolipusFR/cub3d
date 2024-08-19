@@ -80,8 +80,8 @@ int	set_orientation(t_parse *game, char *line, int i, int index)
 		return (1);
 	}
 	game->orientation = line[i];
-	game->player[0] = index;
-	game->player[1] = i;
+	game->player[0] = i; // Inverser pour test
+	game->player[1] = index;
 	line[i] = '0';
 	return (0);
 }
