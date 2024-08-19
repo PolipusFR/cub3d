@@ -40,7 +40,10 @@ char	**update_map(t_parse *game, char *line, int fd, int *status)
 			return (NULL);
 		}
 	}
-	temp = ft_substr(line, 0, ft_strlen(line) - 1);
+	if (ft_strnstr(line, "\n", ft_strlen(line) + 1) == NULL)
+		temp = ft_strdup(line);
+	else
+		temp = ft_substr(line, 0, ft_strlen(line) - 1);
 	if (temp == NULL || temp[0] == '\0')
 	{
 		free(temp);
