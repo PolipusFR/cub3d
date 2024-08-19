@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:50 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/08/19 15:10:19 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:01:01 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ char	*apply_case(char *line, char *id, t_parse *game)
 		return ("Invalid format for color, check it.\n");
 	if (status == 3)
 		return ("Two times same identifier, check it\n");
+	game->cieling = ((game->color_c[0] & 0xff) << 16)
+        + ((game->color_c[1] & 0xff) << 8) + (game->color_c[2] & 0xff);
+    game->floor = ((game->color_f[0] & 0xff) << 16)
+        + ((game->color_f[1] & 0xff) << 8) + (game->color_f[2] & 0xff); 
 	return (NULL);
 }
 

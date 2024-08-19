@@ -74,8 +74,10 @@ typedef struct s_parse
 {
 	char			**map;
 	double			player[2];
-	int			color_f[3];
-	int			color_c[3];
+	int				color_f[3];
+	int				color_c[3];
+	int				floor;
+	int				cieling;
 	char			orientation;
 	char			*n;
 	char			*s;

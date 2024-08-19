@@ -1,14 +1,12 @@
-   WE                            ./textures/wolfenstein/eagle.xpm
-NO      ./textures/wolfenstein/grey_stone.xpm
+   WE                            ./pics/purplestone.xpm
+NO      ./pics/redbrick.xpm
 
 
-
-SO ./textures/wolfenstein/red_brick.xpm
+SO ./pics/greystone.xpm
 
 F   69, 222, 199
 
-EA ./textures/wolfenstein/mossy.xpm
-
+EA ./pics/bluestone.xpm
 
 
 C 235, 198, 52
