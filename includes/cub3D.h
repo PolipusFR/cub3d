@@ -35,6 +35,29 @@
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
 
+#define BBLK "\e[1;30m"
+#define BRED "\e[1;31m"
+#define BGRN "\e[1;32m"
+#define BYEL "\e[1;33m"
+#define BBLU "\e[1;34m"
+#define BMAG "\e[1;35m"
+#define BCYN "\e[1;36m"
+#define BWHT "\e[1;37m"
+
+#define RESET "\e[0m"
+
+
+//Regular underline text
+#define UBLK "\e[2;30m"
+#define URED "\e[2;31m"
+#define UGRN "\e[2;32m"
+#define UYEL "\e[2;33m"
+#define UBLU "\e[3;34m"
+#define UMAG "\e[2;35m"
+#define UCYN "\e[2;36m"
+#define UWHT "\e[2;37m"
+
+
 typedef struct s_texture
 {
 	void	*img;
@@ -51,8 +74,8 @@ typedef struct s_parse
 {
 	char			**map;
 	double			player[2];
-	unsigned long	color_f;
-	unsigned long	color_c;
+	int			color_f[3];
+	int			color_c[3];
 	char			orientation;
 	char			*n;
 	char			*s;
@@ -178,5 +201,40 @@ int			ft_strcmp(char *s1, char *s2);
 int			ft_strlen(char *str);
 int			ft_atoi(const char *str);
 char		**ft_split(char const *s, char c);
+
+
+
+/*Parsing*/
+char	*parsing(char *path);
+char	*ft_strnstr(char *big, char *little, size_t len);
+char	*ft_substr(char *s, unsigned int start, size_t len);
+int		is_charset(char s, const char *charset);
+char	*remove_whitespace(char *line, char *end);
+
+
+void	init_struct(t_parse *game);
+void	free_struct(t_parse *game);
+char	*is_full_game(t_parse *game, int i);
+int		check_file(char *path);
+char	*get_id(char *line);
+int		texture_case(char *line, char *id, t_parse *game);
+
+int	check_color(char *line);
+int check_values(int game[3]);
+int	color_case(char *line, int game[3]);
+
+int	map_case(t_parse *game, char *line, int fd);
+void	free_tab(char **tab);
+char	*fill_line(char *line, int len);
+int	get_longest_string(char **map);
+
+
+int	check_top(char **map, int x, int y);
+int	check_left(char *line, int x);
+
+
+
+int	check_extension(char *path, char *ex);
+int	check_map_right(t_parse *game);
 
 #endif
