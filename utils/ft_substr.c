@@ -1,13 +1,21 @@
-//
-// Created by sben-rho on 7/19/24.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/20 13:10:57 by sben-rho          #+#    #+#             */
+/*   Updated: 2024/08/20 13:11:07 by sben-rho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-char    *ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
-	char    *result;
-	size_t  i;
+	char	*result;
+	size_t	i;
 
 	if (!s)
 		return (NULL);

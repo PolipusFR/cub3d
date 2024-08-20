@@ -6,7 +6,7 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:37 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/07/30 11:21:38 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:15:16 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	set_orientation(t_parse *game, char *line, int i, int index)
 		return (1);
 	}
 	game->orientation = line[i];
-	game->player[0] = i; // Inverser pour test
+	game->player[0] = i;
 	game->player[1] = index;
 	line[i] = '0';
 	return (0);
@@ -177,7 +177,7 @@ int	map_case(t_parse *game, char *line, int fd)
 			return (1);
 		game->map = update_map(game, line, fd, &status);
 		if (status == 1)
-			break;
+			break ;
 		else if (game->map == NULL && status == 0)
 			return (1);
 		line = get_next_line(fd);

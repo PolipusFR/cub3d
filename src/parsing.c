@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:50 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/08/19 17:01:01 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:19:02 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ char	*apply_case(char *line, char *id, t_parse *game)
 	if (status == 3)
 		return ("Two times same identifier, check it\n");
 	game->cieling = ((game->color_c[0] & 0xff) << 16)
-        + ((game->color_c[1] & 0xff) << 8) + (game->color_c[2] & 0xff);
-    game->floor = ((game->color_f[0] & 0xff) << 16)
-        + ((game->color_f[1] & 0xff) << 8) + (game->color_f[2] & 0xff); 
+		+ ((game->color_c[1] & 0xff) << 8) + (game->color_c[2] & 0xff);
+	game->floor = ((game->color_f[0] & 0xff) << 16)
+		+ ((game->color_f[1] & 0xff) << 8) + (game->color_f[2] & 0xff);
 	return (NULL);
 }
 
@@ -97,8 +97,6 @@ int	is_real_id(char *id)
 	free(id);
 	return (1);
 }
-
-// Fonction trop longue en dessous
 
 char	*get_value(t_parse *game, int fd)
 {
@@ -132,7 +130,7 @@ char	*get_value(t_parse *game, int fd)
 			if (is_real_id(id) == 0)
 				return (status);
 			if (map_case(game, line, fd) == 1)
-				return ("--> Invalid Map\n");
+				return ("Invalid Map\n");
 			return (NULL);
 		}
 		free(id);
@@ -152,9 +150,8 @@ char	*parsing(char *path, t_parse *game)
 	int		fd;
 	char	*status;
 
-//	init_struct(game);
 	if (check_file(path) == 1)
-		return ("--> Invalid File, need a .cub file.\n");
+		return ("Invalid File, need a .cub file.\n");
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return ("Invalid file or permission.\n");
@@ -171,7 +168,7 @@ char	*parsing(char *path, t_parse *game)
 	if (is_full_game(game, 0) != NULL)
 	{
 		free_struct(game);
-		return ("--> Missing information\n");
+		return ("Missing information\n");
 	}
 	print_struct(game);
 	return (NULL);

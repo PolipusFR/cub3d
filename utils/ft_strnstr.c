@@ -1,14 +1,22 @@
-//
-// Created by sben-rho on 7/18/24.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/20 13:09:42 by sben-rho          #+#    #+#             */
+/*   Updated: 2024/08/20 13:11:46 by sben-rho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-static char     *search(char *big, char *little, size_t len, char *cpy)
+static char	*search(char *big, char *little, size_t len, char *cpy)
 {
-	size_t                  i;
-	unsigned int    k;
-	size_t                  lenlittle;
+	size_t			i;
+	unsigned int	k;
+	size_t			lenlittle;
 
 	lenlittle = ft_strlen(little);
 	i = -1;
@@ -30,9 +38,9 @@ static char     *search(char *big, char *little, size_t len, char *cpy)
 	return (NULL);
 }
 
-char    *ft_strnstr(char *big, char *little, size_t len)
+char	*ft_strnstr(char *big, char *little, size_t len)
 {
-	char                    *bigcopy;
+	char	*bigcopy;
 
 	bigcopy = (char *)big;
 	if (!little)

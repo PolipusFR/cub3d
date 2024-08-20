@@ -17,19 +17,10 @@ int	ft_clear_and_exit(t_data *data)
 	int	i;
 
 	i = 0;
-//	if (data->parse->map)
-//	{
-//		while (i < MAP_HEIGHT)
-//			free(data->parse->map[i++]);
-//		free(data->parse->map[i]);
-//		free (data->parse->map);
-//	}
 	if (data->game_data->img_ptr)
 		mlx_destroy_image(data->mlx_ptr, data->game_data->img_ptr);
 	if (data->game_data)
 		free(data->game_data);
-//	if (data->parse)
-//		free(data->parse);
 	if (data->texture)
 		clear_textures(data->mlx_ptr, data->texture);
 	if (data->win_ptr)
@@ -44,19 +35,16 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 	t_parse	parse;
-	char *status;
+	char	*status;
 
 	(void)av;
 	init_struct(&parse);
 	if (ac == 2)
 	{
-		// parse = init_parsing_data();
-		// replace manual_parsing() with start_parsing(&parse);
-		// check_valid_map();
 		status = parsing(av[1], &parse);
 		if (status != NULL)
 		{
-			printf("Error\n\t%s", status);
+			printf(BRED"Error\n\t"BMAG"%s"RESET, status);
 			return (0);
 		}
 		data.mlx_ptr = mlx_init();

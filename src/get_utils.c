@@ -6,7 +6,7 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:43 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/07/30 11:21:44 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:13:31 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ int	check_file(char *path)
 		return (1);
 	if (ft_strlen(path) <= 4)
 		return (1);
-//	if (ft_strnstr(path, ".cub", ft_strlen(path)) == NULL)
-//		return (1);
 	if (check_extension(path, ".cub") == 1)
 		return (1);
 	return (0);
