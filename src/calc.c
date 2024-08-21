@@ -6,7 +6,7 @@
 /*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:04:05 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/15 17:21:35 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:34:39 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	check_hit(t_draw_calc *draw, t_game_data *g_data)
 			draw->map_y += draw->step_y;
 			draw->side = 1;
 		}
-		if (g_data->parse->map[draw->map_x][draw->map_y] == '1')
+		if (g_data->parse->map[draw->map_y][draw->map_x] == '1')
 			draw->hit = 1;
 	}
 	if (draw->side == 0)

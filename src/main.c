@@ -37,7 +37,6 @@ int	main(int ac, char **av)
 	t_parse	parse;
 	char	*status;
 
-	(void)av;
 	init_struct(&parse);
 	if (ac == 2)
 	{
