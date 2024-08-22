@@ -6,22 +6,22 @@
 /*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:56:09 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/22 15:01:19 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:03:57 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	init_orientation_ns(t_game_data *g_data, t_parse *parse)
+void	init_orientation_ew(t_game_data *g_data, t_parse *parse)
 {
-	if (parse->orientation == 'N')
+	if (parse->orientation == 'W')
 	{
 		g_data->dir_x = -1;
 		g_data->dir_y = 0;
 		g_data->plane_x = 0;
 		g_data->plane_y = -0.66;
 	}
-	if (parse->orientation == 'S')
+	if (parse->orientation == 'E')
 	{
 		g_data->dir_x = 1;
 		g_data->dir_y = 0;
@@ -30,16 +30,16 @@ void	init_orientation_ns(t_game_data *g_data, t_parse *parse)
 	}
 }
 
-void	init_orientation_ew(t_game_data *g_data, t_parse *parse)
+void	init_orientation_ns(t_game_data *g_data, t_parse *parse)
 {
-	if (parse->orientation == 'E')
+	if (parse->orientation == 'S')
 	{
 		g_data->dir_x = 0;
 		g_data->dir_y = 1;
 		g_data->plane_x = -0.66;
 		g_data->plane_y = 0;
 	}
-	if (parse->orientation == 'W')
+	if (parse->orientation == 'N')
 	{
 		g_data->dir_x = 0;
 		g_data->dir_y = -1;
@@ -61,8 +61,8 @@ t_game_data	*init_game_data(t_data *data)
 		init_orientation_ns(g_data, data->parse);
 	else
 		init_orientation_ew(g_data, data->parse);
-	g_data->pos_x = data->parse->player[1];
-	g_data->pos_y = data->parse->player[0];
+	g_data->pos_x = data->parse->player[0] + 0.5;
+	g_data->pos_y = data->parse->player[1] + 0.5;
 	g_data->rot_speed = 0.080;
 	g_data->move_speed = 0.070;
 	return (g_data);
