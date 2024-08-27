@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:51:02 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/15 17:26:39 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/27 10:54:34 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_texture	*get_textures(void *mlx, t_parse *parse)
 	if (!textures[0].img || !textures[1].img
 		|| !textures[2].img || !textures[3].img)
 	{
-		printf("Texture error\n");
+		printf(BRED"Error\n\t"BMAG"Texture error, check it\n"RESET);
 		clear_textures(mlx, textures);
 		return (NULL);
 	}

@@ -6,7 +6,7 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:27 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/07/30 11:21:28 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/27 09:48:24 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ int	set_colors(char *newline, int game[3])
 	{
 		save = i;
 		while (newline[i] != '\0' && newline[i] != ',')
-		{
 			i++;
-		}
 		temp = ft_substr(newline, save, i - save);
 		if (temp == NULL)
 			return (1);
+		if (temp[0] == '\0')
+			return (free(temp), 1);
 		game[j] = ft_atoi(temp);
 		j++;
 		if (newline[i] != '\0')
@@ -102,7 +102,7 @@ int	color_case(char *line, int game[3])
 	if (check_color(newline) == 2)
 		return (free(newline), 2);
 	if (set_colors(newline, game) == 1)
-		return (free(newline), 1);
+		return (free(newline), 2);
 	free(newline);
 	if (check_values(game) == 1)
 		return (2);

@@ -6,71 +6,11 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:37 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/08/20 13:15:16 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/27 08:32:32 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-
-char	**update_map(t_parse *game, char *line, int fd, int *status)
-{
-	int		i;
-	char	**new_map;
-	char	*temp;
-
-	i = 0;
-	if (line[0] == '\n')
-	{
-		while (line != NULL && line[0] == '\n')
-		{
-			free(line);
-			line = get_next_line(fd);
-		}
-		if (line == NULL || line[0] == '\0')
-		{
-			*status = 1;
-			free(line);
-			return (game->map);
-		}
-		else
-		{
-			free(line);
-			*status = 0;
-			free_tab(game->map);
-			return (NULL);
-		}
-	}
-	if (ft_strnstr(line, "\n", ft_strlen(line) + 1) == NULL)
-		temp = ft_strdup(line);
-	else
-		temp = ft_substr(line, 0, ft_strlen(line) - 1);
-	if (temp == NULL || temp[0] == '\0')
-	{
-		free(temp);
-		free_tab(game->map);
-		return (free(line), NULL);
-	}
-	free(line);
-	line = temp;
-	while (game->map != NULL && game->map[i] != NULL)
-		i++;
-	new_map = malloc(sizeof(char *) * (i + 2));
-	if (new_map == NULL)
-	{
-		free_tab(game->map);
-		return (free(temp), NULL);
-	}
-	i = 0;
-	while (game->map != NULL && game->map[i] != NULL)
-	{
-		new_map[i] = game->map[i];
-		i++;
-	}
-	new_map[i] = line;
-	new_map[i + 1] = NULL;
-	free(game->map);
-	return (new_map);
-}
 
 int	set_orientation(t_parse *game, char *line, int i, int index)
 {
@@ -128,9 +68,8 @@ int	check_map_bottom(t_parse *game)
 		{
 			if (game->map[i][j] == '0')
 			{
-				if (j > len)
-					return (1);
-				if (game->map[i + 1][j] == ' ' || game->map[i + 1][j] == '\0')
+				if (j > len || game->map[i + 1][j] == ' '
+					|| game->map[i + 1][j] == '\0')
 					return (1);
 			}
 			j++;
@@ -185,12 +124,6 @@ int	map_case(t_parse *game, char *line, int fd)
 	}
 	if (check_map_bottom(game) == 1 || check_map_right(game) == 1)
 		return (1);
-	len = get_longest_string(game->map);
-	i = 0;
-	while (game->map[i] != NULL)
-	{
-		game->map[i] = fill_line(game->map[i], len);
-		i++;
-	}
+	flood_map(game);
 	return (0);
 }

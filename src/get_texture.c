@@ -6,7 +6,7 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:40 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/07/30 11:21:41 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/27 08:37:03 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@ int	check_if_copy(char *id, t_parse *game)
 	if (ft_strcmp(id, "EA") == 0 && game->e != NULL)
 		return (1);
 	return (0);
+}
+
+void	assign_texture(char *id, char *temp, t_parse *game)
+{
+	if (ft_strcmp(id, "NO") == 0)
+		game->n = temp;
+	else if (ft_strcmp(id, "SO") == 0)
+		game->s = temp;
+	else if (ft_strcmp(id, "WE") == 0)
+		game->w = temp;
+	if (ft_strcmp(id, "EA") == 0)
+		game->e = temp;
 }
 
 int	texture_case(char *line, char *id, t_parse *game)
@@ -47,14 +59,7 @@ int	texture_case(char *line, char *id, t_parse *game)
 		free(temp);
 		return (1);
 	}
-	if (ft_strcmp(id, "NO") == 0)
-		game->n = temp;
-	else if (ft_strcmp(id, "SO") == 0)
-		game->s = temp;
-	else if (ft_strcmp(id, "WE") == 0)
-		game->w = temp;
-	if (ft_strcmp(id, "EA") == 0)
-		game->e = temp;
+	assign_texture(id, temp, game);
 	free(newline);
 	return (0);
 }

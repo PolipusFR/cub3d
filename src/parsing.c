@@ -6,7 +6,7 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:50 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/08/20 13:19:02 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/27 11:01:14 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,29 +103,17 @@ char	*get_value(t_parse *game, int fd)
 	char	*line;
 	char	*id;
 	char	*status;
-	int		full;
+	char	*full;
 
-	line = get_next_line(fd);
-	while (line != NULL && line[0] == '\n')
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
+	line = skip_newline(fd);
 	while (line != NULL)
 	{
 		id = get_id(line);
-		if (is_full_game(game, 1) != NULL)
-			full = 1;
-		else
-			full = 0;
+		full = is_full_game(game, 1);
 		status = apply_case(line, id, game);
-		if (status != NULL && full == 1)
-		{
-			free(line);
-			free(id);
-			return (status);
-		}
-		else if (status != NULL && full == 0)
+		if (status != NULL && full != NULL)
+			return (double_free(line, id), status);
+		else if (status != NULL && full == NULL)
 		{
 			if (is_real_id(id) == 0)
 				return (status);
@@ -133,14 +121,8 @@ char	*get_value(t_parse *game, int fd)
 				return ("Invalid Map\n");
 			return (NULL);
 		}
-		free(id);
-		free(line);
-		line = get_next_line(fd);
-		while (line != NULL && line[0] == '\n')
-		{
-			free(line);
-			line = get_next_line(fd);
-		}
+		double_free(line, id);
+		line = skip_newline(fd);
 	}
 	return (NULL);
 }
@@ -168,7 +150,7 @@ char	*parsing(char *path, t_parse *game)
 	if (is_full_game(game, 0) != NULL)
 	{
 		free_struct(game);
-		return ("Missing information\n");
+		return ("Missing element\n");
 	}
 	print_struct(game);
 	return (NULL);

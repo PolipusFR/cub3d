@@ -6,7 +6,7 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:43 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/08/20 13:13:31 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/27 08:39:20 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,6 @@ void	free_struct(t_parse *game)
 		free(game->e);
 	if (game->w != NULL)
 		free(game->w);
-}
-
-char	*is_full_game(t_parse *game, int i)
-{
-	if (game->color_f[0] == -1 || game->color_c[0] == -1)
-		return ("Missing element\n");
-	if (!game->w || !game->s || !game->e || !game->n)
-		return ("Missing element\n");
-	if (i == 0)
-	{
-		if (game->player[0] == -1 || game->player[1] == -1)
-			return ("Missing element\n");
-	}
-	return (NULL);
 }
 
 int	check_extension(char *path, char *ex)

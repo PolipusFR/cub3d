@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:31:43 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/15 18:10:28 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/27 10:34:44 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	move_forward(t_game_data *g_data, t_data *data)
 	double	new_pos_x;
 	double	new_pos_y;
 
-	new_pos_x = g_data->pos_x + g_data->dir_x * 1;
-	new_pos_y = g_data->pos_y + g_data->dir_y * 1;
+	new_pos_x = g_data->pos_x + g_data->dir_x * MOOVE;
+	new_pos_y = g_data->pos_y + g_data->dir_y * MOOVE;
 	if (move_possible(data, new_pos_x, new_pos_y))
 		return ;
-	g_data->pos_x += g_data->dir_x * 1;
-	g_data->pos_y += g_data->dir_y * 1;
+	g_data->pos_x += g_data->dir_x * MOOVE;
+	g_data->pos_y += g_data->dir_y * MOOVE;
 }
 
 void	move_left(t_game_data *g_data, t_data *data)
@@ -57,12 +57,12 @@ void	move_left(t_game_data *g_data, t_data *data)
 	double		new_pos_x;
 	double		new_pos_y;
 
-	new_pos_x = g_data->pos_x + g_data->plane_x * 1;
-	new_pos_y = g_data->pos_y + g_data->plane_y * 1;
+	new_pos_x = g_data->pos_x + g_data->plane_x * MOOVE;
+	new_pos_y = g_data->pos_y + g_data->plane_y * MOOVE;
 	if (move_possible(data, new_pos_x, new_pos_y))
 		return ;
-	g_data->pos_x += g_data->plane_x * 1;
-	g_data->pos_y += g_data->plane_y * 1;
+	g_data->pos_x += g_data->plane_x * MOOVE;
+	g_data->pos_y += g_data->plane_y * MOOVE;
 }
 
 void	move_backwards(t_game_data *g_data, t_data *data)
@@ -70,12 +70,12 @@ void	move_backwards(t_game_data *g_data, t_data *data)
 	double		new_pos_x;
 	double		new_pos_y;
 
-	new_pos_x = g_data->pos_x - g_data->dir_x * 1;
-	new_pos_y = g_data->pos_y - g_data->dir_y * 1;
+	new_pos_x = g_data->pos_x - g_data->dir_x * MOOVE;
+	new_pos_y = g_data->pos_y - g_data->dir_y * MOOVE;
 	if (move_possible(data, new_pos_x, new_pos_y))
 		return ;
-	g_data->pos_x -= g_data->dir_x * 1;
-	g_data->pos_y -= g_data->dir_y * 1;
+	g_data->pos_x -= g_data->dir_x * MOOVE;
+	g_data->pos_y -= g_data->dir_y * MOOVE;
 }
 
 void	move_right(t_game_data *g_data, t_data *data)
@@ -83,10 +83,10 @@ void	move_right(t_game_data *g_data, t_data *data)
 	double		new_pos_x;
 	double		new_pos_y;
 
-	new_pos_x = g_data->pos_x - g_data->plane_x * 1;
-	new_pos_y = g_data->pos_y - g_data->plane_y * 1;
+	new_pos_x = g_data->pos_x - g_data->plane_x * MOOVE;
+	new_pos_y = g_data->pos_y - g_data->plane_y * MOOVE;
 	if (move_possible(data, new_pos_x, new_pos_y))
 		return ;
-	g_data->pos_x -= g_data->plane_x * 1;
-	g_data->pos_y -= g_data->plane_y * 1;
+	g_data->pos_x -= g_data->plane_x * MOOVE;
+	g_data->pos_y -= g_data->plane_y * MOOVE;
 }

@@ -35,6 +35,8 @@
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
 
+# define MOOVE 0.09
+
 #define BBLK "\e[1;30m"
 #define BRED "\e[1;31m"
 #define BGRN "\e[1;32m"
@@ -238,5 +240,18 @@ int	check_left(char *line, int x);
 
 int	check_extension(char *path, char *ex);
 int	check_map_right(t_parse *game);
+
+
+void	flood_map(t_parse *game);
+char	**newline_case(char *line, int fd, t_parse *game, int *status);
+char	**fill_tab(t_parse *game, char *line, char **new_map);
+char	**create_tab(t_parse *game, char *temp);
+char	**update_map(t_parse *game, char *line, int fd, int *status);
+
+
+void	double_free(char *str1, char *str2);
+char	*skip_newline(int fd);
+
+
 
 #endif

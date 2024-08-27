@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:06:01 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/22 15:05:25 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/27 08:32:52 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	move_possible(t_data *data, double new_pos_x, double new_pos_y)
 	if (new_pos_x < 1 || new_pos_y < 1)
 		return (1);
 	if (new_pos_x > (double)ft_strlen(data->parse->map[0]) - 1.1)
-        return (1);
-    if (new_pos_y > (double)ft_tablen(data->parse->map) - 1.1)
-        return (1);
+		return (1);
+	if (new_pos_y > (double)ft_tablen(data->parse->map) - 1.1)
+		return (1);
 	if (data->game_data->parse->map[(int)new_pos_y][(int)new_pos_x] == '1')
 		return (1);
 	return (0);
