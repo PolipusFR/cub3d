@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+         #
+#    By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/20 19:21:06 by lsabatie          #+#    #+#              #
-#    Updated: 2024/08/28 17:00:29 by sben-rho         ###   ########.fr        #
+#    Updated: 2024/08/28 17:44:25 by lsabatie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,6 +104,7 @@ clean			:
 fclean			:	clean
 					@echo "${I_MAG}'CUB3D'\t\t: ${RED} deleted ❌ ${RESET}\n"
 					$(RM) $(NAME)
+					$(MAKE) -C mlx_linux clean 
 
 re				:	fclean all
 
