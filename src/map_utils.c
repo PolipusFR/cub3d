@@ -6,7 +6,7 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:07:51 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/08/27 09:55:12 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:40:39 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_tab(char **tab)
 
 int	check_top(char **map, int x, int y)
 {
-	size_t	len;
+	int	len;
 
 	if (y <= 0)
 		return (1);
