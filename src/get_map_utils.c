@@ -84,11 +84,9 @@ char	**create_tab(t_parse *game, char *temp)
 
 char	**update_map(t_parse *game, char *line, int fd, int *status)
 {
-	int		i;
 	char	**new_map;
 	char	*temp;
 
-	i = 0;
 	if (line[0] == '\n')
 		return (newline_case(line, fd, game, status));
 	if (ft_strnstr(line, "\n", ft_strlen(line) + 1) == NULL)

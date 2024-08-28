@@ -10,25 +10,23 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME     := cub3D
-CC       := gcc
-FLAGS    := -g3
+NAME		:= cub3D
+CC			:= gcc
+FLAGS		:= -g3 -Wall -Wextra -Werror
 
-HEADER   := includes/cub3D.h
+HEADER		:= includes/cub3D.h
 
-SRCS        :=    		src/main.c \
-                        src/textures.c \
-                        src/init.c \
-                        src/render.c \
-                        src/calc.c \
-                        src/movement.c \
-                        src/movement_utils.c \
-                        src/main_utils.c \
+SRCS		:=			src/main.c \
+						src/textures.c \
+						src/init.c \
+						src/render.c \
+						src/calc.c \
+						src/movement.c \
+						src/movement_utils.c \
+						src/main_utils.c \
 						utils/ft_atoi.c \
-						utils/ft_split.c \
 						utils/ft_strcmp.c \
 						utils/ft_strlen.c \
-						utils/ft_strncmp.c \
 						utils/ft_tablen.c \
 						utils/get_next_line.c \
 						utils/ft_strnstr.c \

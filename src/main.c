@@ -14,9 +14,6 @@
 
 int	ft_clear_and_exit(t_data *data)
 {
-	int	i;
-
-	i = 0;
 	if (data->game_data->img_ptr)
 		mlx_destroy_image(data->mlx_ptr, data->game_data->img_ptr);
 	if (data->game_data)

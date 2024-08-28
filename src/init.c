@@ -55,8 +55,6 @@ t_game_data	*init_game_data(t_data *data)
 	g_data = malloc(sizeof(t_game_data));
 	g_data->parse = data->parse;
 	g_data->img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
-	g_data->addr = mlx_get_data_addr(g_data->img_ptr, &g_data->bits_per_pixel,
-			&g_data->size_line, &g_data->endian);
 	if (data->parse->orientation == 'S' || data->parse->orientation == 'N')
 		init_orientation_ns(g_data, data->parse);
 	else
@@ -64,7 +62,6 @@ t_game_data	*init_game_data(t_data *data)
 	g_data->pos_x = data->parse->player[0] + 0.5;
 	g_data->pos_y = data->parse->player[1] + 0.5;
 	g_data->rot_speed = 0.080;
-	g_data->move_speed = 0.070;
 	return (g_data);
 }
 

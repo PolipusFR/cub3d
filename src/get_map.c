@@ -105,7 +105,6 @@ int	check_map_right(t_parse *game)
 int	map_case(t_parse *game, char *line, int fd)
 {
 	int	i;
-	int	len;
 	int	status;
 
 	i = 0;
