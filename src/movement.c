@@ -51,25 +51,3 @@ int	key_hook(int keycode, t_data *data)
 		rotate(g_data, 1, oldplane_x, olddir_x);
 	return (1);
 }
-
-int	mouse_hook(int mouse_code, t_data *data)
-{
-	int	mouse_visible;
-
-	mouse_visible = 1;
-	printf("%d\n", mouse_code);
-	if (mouse_code == 1)
-	{
-		if (mouse_visible == 1)
-		{
-			mouse_visible = 0;
-			mlx_mouse_hide(&data->mlx_ptr, &data->win_ptr);
-		}
-		else
-		{
-			mouse_visible = 1;
-			mlx_mouse_show(data->mlx_ptr, data->win_ptr);
-		}
-	}
-	return (1);
-}

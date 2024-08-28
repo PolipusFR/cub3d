@@ -29,7 +29,7 @@ void	free_tab(char **tab)
 
 int	check_top(char **map, int x, int y)
 {
-	int	len;
+	size_t	len;
 
 	if (y <= 0)
 		return (1);

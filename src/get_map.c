@@ -53,8 +53,8 @@ int	check_map_line(char *line, char *charset, t_parse *game, int index)
 int	check_map_bottom(t_parse *game)
 {
 	int	i;
-	int	j;
-	int	len;
+	size_t	j;
+	size_t	len;
 
 	i = 0;
 	while (game->map[i] != NULL)
