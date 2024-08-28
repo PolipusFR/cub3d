@@ -15,11 +15,11 @@
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
 # include <fcntl.h>
-# include <stdlib.h> // free
-# include <stdint.h> // for calloc
+# include <stdlib.h>
+# include <stdint.h>
 # include <math.h>
 # include <stdio.h>
-# include <unistd.h> // read
+# include <unistd.h>
 
 # define WIDTH 1920
 # define HEIGHT 1080
