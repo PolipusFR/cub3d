@@ -46,7 +46,7 @@ int	texture_case(char *line, char *id, t_parse *game)
 	newline = remove_whitespace(line, ".0123456789");
 	i = 2;
 	if (newline[i] != '.' || newline[i + 1] != '/')
-		return (1);
+		return (free(newline), 1);
 	if (check_if_copy(id, game) == 1)
 	{
 		free(newline);

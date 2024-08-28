@@ -6,7 +6,7 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:37 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/08/27 08:32:32 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:46:02 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_map_line(char *line, char *charset, t_parse *game, int index)
 
 int	check_map_bottom(t_parse *game)
 {
-	int	i;
+	int		i;
 	size_t	j;
 	size_t	len;
 

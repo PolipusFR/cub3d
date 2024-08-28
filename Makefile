@@ -3,77 +3,118 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/20 19:21:06 by lsabatie          #+#    #+#              #
-#    Updated: 2024/08/28 15:36:03 by lsabatie         ###   ########.fr        #
+#    Updated: 2024/08/28 17:00:29 by sben-rho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		:= cub3D
-CC			:= gcc
-FLAGS		:= -g3 -Wall -Wextra -Werror
-MLX_FLAGS	:= -Lmlx_linux -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+########################################################################################################################
+#                                                       BUILS SRC                                                      #
+########################################################################################################################
 
-HEADER		:= includes/cub3D.h
+UTILS_DIR		:=	utils/
+UTILS_SRC		:=	ft_atoi.c\
+					ft_strcmp.c\
+					ft_strdup.c\
+					ft_strlen.c\
+					ft_strnstr.c\
+					ft_substr.c\
+					ft_tablen.c\
+					get_next_line.c\
+					get_next_line_utils.c\
+					is_charset.c\
+				
+SRC				+=	$(addprefix $(UTILS_DIR), $(UTILS_SRC))
+SRC				+=	calc.c\
+					fill_map.c\
+					get_color.c\
+					get_map_utils.c\
+					get_map.c\
+					get_texture.c\
+					get_utils.c\
+					init.c\
+					main_utils.c\
+					main.c\
+					map_utils.c\
+					movement_utils.c\
+					movement.c\
+					parsing_utils.c\
+					parsing.c\
+					remove_whitespace.c\
+					render.c\
+					textures.c\
 
-SRCS		:=			main.c \
-						textures.c \
-						init.c \
-						render.c \
-						calc.c \
-						movement.c \
-						movement_utils.c \
-						main_utils.c \
-						parsing.c \
-						remove_whitespace.c \
-						get_texture.c \
-						get_color.c \
-						get_utils.c \
-						get_map.c \
-						fill_map.c \
-						map_utils.c \
-						get_map_utils.c \
-						parsing_utils.c \
-						utils/ft_atoi.c \
-						utils/ft_strcmp.c \
-						utils/ft_strlen.c \
-						utils/ft_tablen.c \
-						utils/get_next_line.c \
-						utils/ft_strnstr.c \
-						utils/get_next_line_utils.c \
-						utils/ft_strdup.c \
-						utils/ft_substr.c \
-						utils/is_charset.c\
+########################################################################################################################
+#                                                     --VARIABLE--                                                     #
+########################################################################################################################
+
+SRCS_D			:=	src/
+
+HEAD			:=	cub3D.h
+HEAD_D			:=	./includes/
+HEAD_A			:=	$(addprefix $(HEAD_D), $(HEAD))
+
+OBJS_D			:=	.objs/
+OBJS			:=	$(addprefix $(OBJS_D),$(SRC:%.c=%.o))
+DEPS			:=	$(OBJS:%.o=%.d)
+
+NAME			:=	cub3D
 
 
-OBJ_PREP	:= $(SRCS:.c=.o)
+RM				:=	rm -rf
+CC				:=	gcc
+CFLAGS			:=	-g3 -Wall -Wextra -Werror -I$(HEAD_D)
 
-SRC_PATH	:= ./src/
-OBJ_PATH	:= ./obj/
-INC_PATH	:= -I ./includes/
+MLX_FLAGS		:=	-Lmlx_linux -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
-OBJ 		:= $(patsubst %,$(OBJ_PATH)%,$(OBJ_PREP))
+########################################################################################################################
+#                                                      --RULES--                                                       #
+########################################################################################################################
 
-RM          := rm -f
+all				:	$(NAME)
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c $(HEADER) Makefile
-		$(CC) $(FLAGS) -o $@ -c $< $(INC_PATH)
+$(NAME)			:	$(OBJS_D) $(OBJS)
+					@echo "${I_MAG}'OBJECTS'\t: ${GREEN} done ✅ ${RESET}\n"
+					@echo "${I_MAG}'CUB3D'\t\t: ${RED} Work In Progress ◌ ${RESET}"
+					$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS)
+					@echo "${I_MAG}'CUB3D'\t\t: ${GREEN} done ✅ ${RESET}\n"
+					@echo "${I_BLUE} Welcome in the final edition of,"
+					@echo " ██████╗██╗   ██╗██████╗ ██████╗ ██████╗ ";
+					@echo "██╔════╝██║   ██║██╔══██╗╚════██╗██╔══██╗";
+					@echo "██║     ██║   ██║██████╔╝ █████╔╝██║  ██║";
+					@echo "██║     ██║   ██║██╔══██╗ ╚═══██╗██║  ██║";
+					@echo "╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝";
+					@echo " ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ";
+					@echo "${RESET}";
 
-$(NAME): $(OBJ)
-			chmod 777 mlx_linux/configure
-			$(MAKE) -C mlx_linux all
-			$(CC) -o $@ $^ $(MLX_FLAGS)
+$(OBJS)			:	$(OBJS_D)%.o: $(SRCS_D)%.c
+					$(CC) $(CFLAGS) -c $< -o $@
 
-all:		${NAME}
+$(OBJS_D)		:
+					@echo "${I_MAG}'OBJECTS'\t: ${RED} Work In Progress ◌ ${RESET}"
+					mkdir -p $(OBJS_D)
+					mkdir -p $(OBJS_D)/utils
 
-clean:
-			$(RM) *.o */*.o */*/*.o 
-			
-fclean:		clean
-			$(RM) $(NAME)
-			$(MAKE) -C mlx_linux clean 
+clean			:
+					@echo "${I_MAG}'OBJECTS'\t: ${RED} deleted ❌ ${RESET}"
+					$(RM) $(OBJS) $(OBJS_D)
 
-re:			fclean all
+fclean			:	clean
+					@echo "${I_MAG}'CUB3D'\t\t: ${RED} deleted ❌ ${RESET}\n"
+					$(RM) $(NAME)
 
-.PHONY:		all clean fclean re
+re				:	fclean all
+
+.PHONY			:	all clean fclean re
+
+########################################################################################################################
+#                                                      --COLOR--                                                       #
+########################################################################################################################
+
+RED				=	\033[0;31m
+GREEN			=	\033[0;32m
+RESET			=	\033[0m
+I_MAG			=	\033[3;35m
+I_BLUE			=	\033[3;34m

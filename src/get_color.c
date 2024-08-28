@@ -6,7 +6,7 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:27 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/08/27 09:48:24 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:14:27 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,11 @@ int	color_case(char *line, int game[3])
 
 	if (game[0] != -1)
 		return (3);
+	if (line[1] == '\0')
+		return (2);
 	newline = remove_whitespace(line, "\n");
+	if (newline == NULL)
+		return (1);
 	if (check_color(newline) == 2)
 		return (free(newline), 2);
 	if (set_colors(newline, game) == 1)

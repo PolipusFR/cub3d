@@ -6,7 +6,7 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:30:54 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/08/27 08:33:01 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:30:35 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	flood_map(t_parse *game)
 	i = 0;
 	while (game->map[i] != NULL)
 	{
-		game->map[i] = fill_line(game->map[i], len);
+		game->map[i] = fill_line(game->map[i], len); //proteger
 		i++;
 	}
 }
