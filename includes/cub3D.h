@@ -135,7 +135,6 @@ typedef struct s_data
 	t_keys		*keys;
 }				t_data;
 
-
 /*						RAY CASTING					*/
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			ft_clear_and_exit(t_data *data);

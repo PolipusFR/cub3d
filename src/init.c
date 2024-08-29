@@ -6,7 +6,7 @@
 /*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:56:09 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/29 03:32:06 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/29 05:22:07 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ t_draw_calc	init_draw(void)
 	return (draw);
 }
 
-t_keys *init_keys(void)
+t_keys	*init_keys(void)
 {
-	t_keys *keys;
+	t_keys	*keys;
 
 	keys = malloc(sizeof(t_keys));
 	if (!keys)

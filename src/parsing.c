@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:50 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/08/28 17:06:39 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/29 05:11:17 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*get_value(t_parse *game, int fd)
 		full = is_full_game(game, 1);
 		status = apply_case(line, id, game);
 		if (status != NULL && full != NULL)
-			return (double_free(line, id),status);
+			return (double_free(line, id), status);
 		else if (status != NULL && full == NULL)
 		{
 			if (is_real_id(id) == 0)

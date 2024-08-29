@@ -34,7 +34,9 @@ void	init_hook(t_data *data)
 {
 	mlx_hook(data->win_ptr, 33, 1l << 17, ft_clear_and_exit, data);
 	mlx_hook(data->win_ptr, 2, 1L << 0, key_press, data);
-    mlx_hook(data->win_ptr, 3, 1L << 1, key_release, data);
+	mlx_hook(data->win_ptr, 3, 1L << 1, key_release, data);
+	mlx_loop_hook(data->mlx_ptr, render, data);
+	mlx_loop(data->mlx_ptr);
 }
 
 t_data	init_data(t_parse *parse)
@@ -71,8 +73,6 @@ int	main(int ac, char **av)
 		if (!data.texture)
 			ft_clear_and_exit(&data);
 		init_hook(&data);
-		mlx_loop_hook(data.mlx_ptr, render, &data);
-		mlx_loop(data.mlx_ptr);
 		ft_clear_and_exit(&data);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:01:29 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/29 04:43:48 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/29 05:20:39 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,35 +63,8 @@ void	get_coor_x_texture(t_color *color, t_draw_calc *draw, t_data *data)
 			* draw->ray_dir_x;
 	color->wall_x -= floor((color->wall_x));
 	color->tex_x = (int)(color->wall_x * \
-	 		(double)data->texture[color->tex_num].width);
+			(double)data->texture[color->tex_num].width);
 	color->tex_x = data->texture[color->tex_num].width - color->tex_x - 1;
-}
-
-void	get_tex_color(t_draw_calc *draw, t_data *data)
-{
-	t_color	color;
-	int		y;
-
-	init_color(&color);
-	color.tex_num = get_texnum(draw);
-	get_coor_x_texture(&color, draw, data);
-	color.step = 1 * (double)data->texture[color.tex_num].height / \
-			draw->line_height;
-	color.tex_pos = (draw->draw_start - HEIGHT / 2 + \
-			draw->line_height / 2) * color.step;
-	y = draw->draw_start;
-	while (y < draw->draw_end)
-	{
-		color.tex_y = (int)color.tex_pos % \
-				data->texture[color.tex_num].height;
-		if (color.tex_y >= data->texture[color.tex_num].height)
-			color.tex_y = data->texture[color.tex_num].height - 1;
-		color.tex_pos += color.step;
-		color.color = get_pixel_from_texture(&data->texture[color.tex_num],
-				color.tex_x, color.tex_y);
-		draw->colors[y] = color.color;
-		y++;
-	}
 }
 
 int	render(t_data *data)

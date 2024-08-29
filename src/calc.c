@@ -6,7 +6,7 @@
 /*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:04:05 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/29 04:47:44 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/29 05:21:09 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	check_hit(t_draw_calc *draw, t_game_data *g_data)
 void	calc_wall_height(t_draw_calc *draw)
 {
 	float	aspect_ratio;
-	
+
 	aspect_ratio = WIDTH / HEIGHT;
 	if (draw->perp_wall_dist <= 0)
 		draw->perp_wall_dist = 0.1;

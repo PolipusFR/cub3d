@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:51:02 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/27 10:54:34 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/29 05:20:52 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,31 @@ t_texture	*get_textures(void *mlx, t_parse *parse)
 		return (NULL);
 	}
 	return (textures);
+}
+
+void	get_tex_color(t_draw_calc *draw, t_data *data)
+{
+	t_color	color;
+	int		y;
+
+	init_color(&color);
+	color.tex_num = get_texnum(draw);
+	get_coor_x_texture(&color, draw, data);
+	color.step = 1 * (double)data->texture[color.tex_num].height / \
+			draw->line_height;
+	color.tex_pos = (draw->draw_start - HEIGHT / 2 + \
+			draw->line_height / 2) * color.step;
+	y = draw->draw_start;
+	while (y < draw->draw_end)
+	{
+		color.tex_y = (int)color.tex_pos % \
+				data->texture[color.tex_num].height;
+		if (color.tex_y >= data->texture[color.tex_num].height)
+			color.tex_y = data->texture[color.tex_num].height - 1;
+		color.tex_pos += color.step;
+		color.color = get_pixel_from_texture(&data->texture[color.tex_num],
+				color.tex_x, color.tex_y);
+		draw->colors[y] = color.color;
+		y++;
+	}
 }
