@@ -6,7 +6,7 @@
 /*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:01:29 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/29 03:23:22 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/29 04:43:48 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,8 @@ void	get_coor_x_texture(t_color *color, t_draw_calc *draw, t_data *data)
 			* draw->ray_dir_x;
 	color->wall_x -= floor((color->wall_x));
 	color->tex_x = (int)(color->wall_x * \
-			(double)data->texture[color->tex_num].width);
-	if (draw->side == 0 && draw->ray_dir_x > 0)
-		color->tex_x = data->texture[color->tex_num].width - color->tex_x - 1;
-	if (draw->side == 1 && draw->ray_dir_y < 0)
-		color->tex_x = data->texture[color->tex_num].width - color->tex_x - 1;
+	 		(double)data->texture[color->tex_num].width);
+	color->tex_x = data->texture[color->tex_num].width - color->tex_x - 1;
 }
 
 void	get_tex_color(t_draw_calc *draw, t_data *data)
