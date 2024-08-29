@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 13:48:30 by lsabatie          #+#    #+#             */
-/*   Updated: 2023/10/13 15:26:01 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/29 04:52:44 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 char	*fill_string(int fd, char *buf)
 {

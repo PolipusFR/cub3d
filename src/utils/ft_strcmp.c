@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 22:24:29 by lsabatie          #+#    #+#             */
-/*   Updated: 2023/10/13 15:25:55 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/29 04:52:26 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 int	ft_strcmp(char *s1, char *s2)
 {

@@ -23,7 +23,6 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
-# define ASPECT_RATIO (WIDTH / HEIGHT)
 
 # define ESC_KEY 65307
 # define W_KEY 119
