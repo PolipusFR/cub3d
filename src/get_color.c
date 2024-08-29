@@ -98,7 +98,7 @@ int	color_case(char *line, int game[3])
 
 	if (game[0] != -1)
 		return (3);
-	if (line[1] == '\0')
+	if (line[1] == '\n')
 		return (2);
 	newline = remove_whitespace(line, "\n");
 	if (newline == NULL)

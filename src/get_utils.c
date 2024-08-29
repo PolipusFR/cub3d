@@ -48,6 +48,7 @@ int	check_extension(char *path, char *ex)
 {
 	int	lenex;
 	int	lenpath;
+	int	state;
 
 	if (!path || path[0] == '\0')
 		return (1);
@@ -55,8 +56,15 @@ int	check_extension(char *path, char *ex)
 	lenex = ft_strlen(ex);
 	if (lenpath <= lenex)
 		return (1);
+	state = 0;
 	while (lenex >= 0)
 	{
+		if (state == 0 && path[lenpath] == ' ')
+		{
+			lenpath--;
+			state = 1;
+			continue ;
+		}
 		if (path[lenpath] != ex[lenex])
 			return (1);
 		lenpath--;

@@ -143,6 +143,8 @@ void		init_color(t_color *color);
 int			get_texnum(t_draw_calc *draw);
 
 t_texture	*get_textures(void *mlx, t_parse *parse);
+void		get_tex_color(t_draw_calc *draw, t_data *data);
+void		get_coor_x_texture(t_color *color, t_draw_calc *draw, t_data *data);
 
 void		*ft_calloc(size_t count, size_t size);
 char		*ft_strdup(const char *s1);
