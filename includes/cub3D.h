@@ -23,6 +23,7 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
+# define ASPECT_RATIO (WIDTH / HEIGHT)
 
 # define ESC_KEY 65307
 # define W_KEY 119
@@ -113,6 +114,16 @@ typedef struct s_draw_calc
 	int			*colors;
 }				t_draw_calc;
 
+typedef struct s_keys
+{
+	int		w;
+	int		a;
+	int		s;
+	int		d;
+	int		left;
+	int		right;
+}				t_keys;
+
 typedef struct s_data
 {
 	void		*mlx_ptr;
@@ -122,7 +133,9 @@ typedef struct s_data
 	t_game_data	*game_data;
 	t_texture	*texture;
 	t_draw_calc	*draw_data;
+	t_keys		*keys;
 }				t_data;
+
 
 /*						RAY CASTING					*/
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
@@ -140,15 +153,20 @@ void		clear_textures(void *mlx, t_texture *text);
 
 t_game_data	*init_game_data(t_data *data);
 t_draw_calc	init_draw(void);
+t_keys		*init_keys(void);
 
 void		calc_wall_height(t_draw_calc *draw);
 void		check_hit(t_draw_calc *draw, t_game_data *g_data);
 void		calc_step(t_draw_calc *draw, t_game_data *g_data);
-int			key_hook(int keycode, t_data *data);
+int			key_hook(t_data *data);
 
 int			render(t_data *data);
+void		raycasting(t_data *data, t_game_data *g_data, t_draw_calc draw);
+
 void		rotate(t_game_data *g_data, int direction,
 				double oldplane_x, double olddir_x);
+int			key_press(int keycode, t_data *data);
+int			key_release(int keycode, t_data *data);
 void		move_forward(t_game_data *g_data, t_data *data);
 void		move_left(t_game_data *g_data, t_data *data);
 void		move_backwards(t_game_data *g_data, t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:01:29 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/21 14:33:42 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/29 03:23:22 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,26 @@ int	render(t_data *data)
 {
 	t_draw_calc	draw;
 	t_game_data	*g_data;
-	int			x;
 
-	x = 0;
+	key_hook(data);
 	draw = init_draw();
 	g_data = data->game_data;
 	data->draw_data = &draw;
 	g_data->buff_img_ptr = g_data->img_ptr;
 	g_data->img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	raycasting(data, g_data, draw);
+	mlx_destroy_image(data->mlx_ptr, g_data->buff_img_ptr);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+		g_data->img_ptr, 0, 0);
+	free(draw.colors);
+	return (0);
+}
+
+void	raycasting(t_data *data, t_game_data *g_data, t_draw_calc draw)
+{
+	int			x;
+
+	x = 0;
 	while (x < WIDTH)
 	{
 		prepare_render_data(&draw, g_data, x);
@@ -119,9 +131,4 @@ int	render(t_data *data)
 		draw_line(x, draw.draw_start, draw.draw_end, data);
 		x++;
 	}
-	mlx_destroy_image(data->mlx_ptr, g_data->buff_img_ptr);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-		g_data->img_ptr, 0, 0);
-	free(draw.colors);
-	return (0);
 }

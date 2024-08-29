@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:56:09 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/27 10:50:52 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/08/29 03:32:06 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_game_data	*init_game_data(t_data *data)
 	t_game_data	*g_data;
 
 	g_data = malloc(sizeof(t_game_data));
+	if (!g_data)
+		return (NULL);
 	g_data->parse = data->parse;
 	g_data->img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	if (data->parse->orientation == 'S' || data->parse->orientation == 'N')
@@ -88,4 +90,20 @@ t_draw_calc	init_draw(void)
 	draw.draw_end = 0;
 	draw.colors = ft_calloc(HEIGHT, sizeof(int));
 	return (draw);
+}
+
+t_keys *init_keys(void)
+{
+	t_keys *keys;
+
+	keys = malloc(sizeof(t_keys));
+	if (!keys)
+		return (NULL);
+	keys->w = 0;
+	keys->a = 0;
+	keys->s = 0;
+	keys->d = 0;
+	keys->left = 0;
+	keys->right = 0;
+	return (keys);
 }

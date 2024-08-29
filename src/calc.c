@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:04:05 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/22 15:48:15 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/08/29 03:48:54 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	calc_wall_height(t_draw_calc *draw)
 {
 	if (draw->perp_wall_dist <= 0)
 		draw->perp_wall_dist = 0.1;
-	draw->line_height = (int)(HEIGHT / draw->perp_wall_dist);
+	draw->line_height = (int)(HEIGHT / draw->perp_wall_dist) * ASPECT_RATIO;
 	draw->draw_start = -(draw->line_height) / 2 + HEIGHT / 2;
 	if (draw->draw_start < 0)
 		draw->draw_start = 0;

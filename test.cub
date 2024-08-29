@@ -3,7 +3,6 @@ WE ./pics/greystone.xpm
 SO 	  ./pics/redbrick.xpm
 EA ./pics/backroom.xpm
 
-F
 F 220,0,255
 C 255,25,255
 
