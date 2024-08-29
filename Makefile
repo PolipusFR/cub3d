@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/20 19:21:06 by lsabatie          #+#    #+#              #
-#    Updated: 2024/08/28 17:44:25 by lsabatie         ###   ########.fr        #
+#    Updated: 2024/08/29 02:03:36 by lsabatie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ MLX_FLAGS		:=	-Lmlx_linux -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 all				:	$(NAME)
 
 $(NAME)			:	$(OBJS_D) $(OBJS)
+					$(MAKE) -C mlx_linux all
 					@echo "${I_MAG}'OBJECTS'\t: ${GREEN} done ✅ ${RESET}\n"
 					@echo "${I_MAG}'CUB3D'\t\t: ${RED} Work In Progress ◌ ${RESET}"
 					$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS)
