@@ -48,29 +48,25 @@ int	check_extension(char *path, char *ex)
 {
 	int	lenex;
 	int	lenpath;
-	int	state;
+	int	save;
 
 	if (!path || path[0] == '\0')
 		return (1);
-	lenpath = ft_strlen(path);
-	lenex = ft_strlen(ex);
+	lenpath = ft_strlen(path) - 1;
+	lenex = ft_strlen(ex) - 1;
+	save = lenex;
 	if (lenpath <= lenex)
-		return (1);
-	state = 0;
+		return (-1);
+	while (path[lenpath] == ' ' && lenpath >= 0)
+		lenpath--;
 	while (lenex >= 0)
 	{
-		if (state == 0 && path[lenpath] == ' ')
-		{
-			lenpath--;
-			state = 1;
-			continue ;
-		}
 		if (path[lenpath] != ex[lenex])
-			return (1);
+			return (-1);
 		lenpath--;
 		lenex--;
 	}
-	return (0);
+	return (lenpath + save + 2);
 }
 
 int	check_file(char *path)

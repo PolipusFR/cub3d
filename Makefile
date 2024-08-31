@@ -76,7 +76,7 @@ MLX_FLAGS		:=	-Lmlx_linux -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 all				:	$(NAME)
 
 $(NAME)			:	$(OBJS_D) $(OBJS)
-					$(MAKE) -C mlx_linux all
+					$(MAKE) -C mlx_linux all -s
 					@echo "${I_MAG}'OBJECTS'\t: ${GREEN} done ✅ ${RESET}\n"
 					@echo "${I_MAG}'CUB3D'\t\t: ${RED} Work In Progress ◌ ${RESET}"
 					$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS)
@@ -105,7 +105,7 @@ clean			:
 fclean			:	clean
 					@echo "${I_MAG}'CUB3D'\t\t: ${RED} deleted ❌ ${RESET}\n"
 					$(RM) $(NAME)
-					$(MAKE) -C mlx_linux clean 
+					$(MAKE) -C mlx_linux clean -s
 
 re				:	fclean all
 

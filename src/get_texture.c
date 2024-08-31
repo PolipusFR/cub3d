@@ -27,6 +27,7 @@ int	check_if_copy(char *id, t_parse *game)
 
 void	assign_texture(char *id, char *temp, t_parse *game)
 {
+
 	if (ft_strcmp(id, "NO") == 0)
 		game->n = temp;
 	else if (ft_strcmp(id, "SO") == 0)
@@ -42,6 +43,7 @@ int	texture_case(char *line, char *id, t_parse *game)
 	char	*newline;
 	int		i;
 	char	*temp;
+	int		len;
 
 	newline = remove_whitespace(line, ".0123456789");
 	i = 2;
@@ -53,13 +55,21 @@ int	texture_case(char *line, char *id, t_parse *game)
 		return (3);
 	}
 	temp = ft_substr(newline, 2, ft_strlen(newline) - 2);
-	if (check_extension(temp, ".xpm") == 1)
+	len = check_extension(temp, ".xpm");
+	if (len == -1)
 	{
 		free(newline);
 		free(temp);
 		return (1);
 	}
+	else
+	{
+		free(newline);
+		newline = ft_strdup(temp);
+		free(temp);
+		temp = ft_substr(newline, 0, len);
+		free(newline);
+	}
 	assign_texture(id, temp, game);
-	free(newline);
 	return (0);
 }

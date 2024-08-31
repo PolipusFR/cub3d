@@ -1,7 +1,7 @@
-NO       ./pics/backroom.xpm
+NO       ./pics/backroom.xpm            
 WE ./pics/backroom.xpm
 SO 	  ./pics/backroom.xpm
-EA ./pics/backroom.xpm             
+EA ./pics/backroom.xpm
 
 F 123,107,58
 C 172,157,74
