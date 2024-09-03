@@ -195,7 +195,7 @@ int			check_top(char **map, int x, int y);
 int			check_left(char *line, int x);
 int			check_extension(char *path, char *ex);
 int			check_map_right(t_parse *game);
-void		flood_map(t_parse *game);
+int			flood_map(t_parse *game);//oco
 char		**create_tab(t_parse *game, char *temp);
 char		**update_map(t_parse *game, char *line, int fd, int *status);
 char		**fill_tab(t_parse *game, char *line, char **new_map);

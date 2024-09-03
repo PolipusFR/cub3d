@@ -6,7 +6,7 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:41:00 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/07/30 11:41:01 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:25:05 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*fill_line(char *line, int len)
 	i = 0;
 	newline = malloc(sizeof(char) * (len + 1));
 	if (newline == NULL)
-		return (NULL);
+		return (free(line), NULL);
 	while (line[i] != '\0')
 	{
 		newline[i] = line[i];

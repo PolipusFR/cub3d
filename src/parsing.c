@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:50 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/08/29 05:11:17 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:10:23 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ char	*get_value(t_parse *game, int fd)
 	while (line != NULL)
 	{
 		id = get_id(line);
+		if (id == NULL)
+			return ("Invalid identifier\n");
 		full = is_full_game(game, 1);
 		status = apply_case(line, id, game);
 		if (status != NULL && full != NULL)

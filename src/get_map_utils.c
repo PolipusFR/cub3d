@@ -6,13 +6,13 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:30:54 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/08/28 17:30:35 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:28:07 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	flood_map(t_parse *game)
+int	flood_map(t_parse *game)
 {
 	int	i;
 	int	len;
@@ -21,9 +21,20 @@ void	flood_map(t_parse *game)
 	i = 0;
 	while (game->map[i] != NULL)
 	{
-		game->map[i] = fill_line(game->map[i], len); //proteger
+		game->map[i] = fill_line(game->map[i], len);
+		if (game->map[i] == NULL)
+		{
+			i++;
+			while (game->map[i] != NULL)
+			{
+				free(game->map[i]);
+				i++;
+			}
+			return (1);
+		}
 		i++;
 	}
+	return (0);
 }
 
 char	**newline_case(char *line, int fd, t_parse *game, int *status)
@@ -103,7 +114,10 @@ char	**update_map(t_parse *game, char *line, int fd, int *status)
 	line = temp;
 	new_map = create_tab(game, temp);
 	if (new_map == NULL)
+	{
+		*status = 0;
 		return (NULL);
+	}
 	new_map = fill_tab(game, line, new_map);
 	return (new_map);
 }

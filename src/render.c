@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:01:29 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/29 05:20:39 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:59:15 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	render(t_data *data)
 
 	key_hook(data);
 	draw = init_draw();
+	if (!draw.colors)
+		ft_clear_and_exit(data);
 	g_data = data->game_data;
 	data->draw_data = &draw;
 	g_data->buff_img_ptr = g_data->img_ptr;

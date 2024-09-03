@@ -6,7 +6,7 @@
 /*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:37 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/08/28 16:46:02 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:00:44 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int	map_case(t_parse *game, char *line, int fd)
 	}
 	if (check_map_bottom(game) == 1 || check_map_right(game) == 1)
 		return (1);
-	flood_map(game);
+	if (flood_map(game) == 1)
+		return (1);
 	return (0);
 }
