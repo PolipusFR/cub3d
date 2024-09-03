@@ -39,11 +39,8 @@ void	init_hook(t_data *data)
 	mlx_loop(data->mlx_ptr);
 }
 
-t_data	init_data(t_parse *parse)
+t_data	init_data(t_parse *parse, t_data data)
 {
-	t_data	data;
-
-	data.mlx_ptr = mlx_init();
 	data.win_ptr = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Cub3D");
 	data.parse = parse;
 	data.texture = NULL;
@@ -52,13 +49,24 @@ t_data	init_data(t_parse *parse)
 	return (data);
 }
 
+void	init_parse_and_mlx(t_parse *parse, t_data *data)
+{
+	init_struct(parse);
+	data->mlx_ptr = mlx_init();
+	if (!data->mlx_ptr)
+	{
+		printf(BRED"Error\n\t"BMAG"mlx_init failed\n"RESET);
+		exit(0);
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
 	t_parse	parse;
 	char	*status;
 
-	init_struct(&parse);
+	init_parse_and_mlx(&parse, &data);
 	if (ac == 2)
 	{
 		status = parsing(av[1], &parse);
@@ -67,7 +75,7 @@ int	main(int ac, char **av)
 			printf(BRED"Error\n\t"BMAG"%s"RESET, status);
 			return (0);
 		}
-		data = init_data(&parse);
+		data = init_data(&parse, data);
 		if (data.game_data == NULL || data.keys == NULL || data.win_ptr == NULL)
 			return (ft_clear_and_exit(&data), 0);
 		data.texture = get_textures(data.mlx_ptr, &parse);
