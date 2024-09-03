@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_texture.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:40 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/09/03 12:51:35 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/09/03 13:04:52 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	texture_case(char *line, char *id, t_parse *game)
 	char	*newline;
 	int		i;
 
+	if (line[2] == '\n')
+		return (1);
 	newline = remove_whitespace(line, ".0123456789");
 	if (newline == NULL)
 		return (1);
