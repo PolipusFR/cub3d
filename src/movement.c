@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:06:01 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/09/03 12:59:47 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:35:48 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	move_possible(t_data *data, double new_pos_x, double new_pos_y)
 {
-	printf("new_pos_x: %f new_pos_y: %f\n", new_pos_x, new_pos_y);
 	if (new_pos_x < 0.5 || new_pos_y < 0.5)
 		return (0);
 	if (new_pos_x > (double)ft_strlen(data->parse->map[0]) - 1.1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:23:21 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/09/03 11:38:39 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:24:58 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,22 @@ int	get_texnum(t_draw_calc *draw)
 	{
 		if (draw->ray_dir_y > 0)
 		{
-			return (3);
+			return (0);
 		}
 		else
 		{
-			return (2);
+			return (1);
 		}
 	}
 	else
 	{
 		if (draw->ray_dir_x > 0)
 		{
-			return (0);
+			return (3);
 		}
 		else
 		{
-			return (1);
+			return (2);
 		}
 	}
 }

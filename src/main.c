@@ -49,8 +49,6 @@ t_data	init_data(t_parse *parse)
 	data.texture = NULL;
 	data.game_data = init_game_data(&data);
 	data.keys = init_keys();
-	if (!data.keys || !data.game_data)
-		return (data);
 	return (data);
 }
 
@@ -70,7 +68,7 @@ int	main(int ac, char **av)
 			return (0);
 		}
 		data = init_data(&parse);
-		if (data.game_data == NULL || data.keys == NULL)
+		if (data.game_data == NULL || data.keys == NULL || data.win_ptr == NULL)
 			return (ft_clear_and_exit(&data), 0);
 		data.texture = get_textures(data.mlx_ptr, &parse);
 		if (!data.texture)

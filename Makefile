@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+         #
+#    By: lsabatie <lsabatie@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/20 19:21:06 by lsabatie          #+#    #+#              #
-#    Updated: 2024/09/03 11:41:17 by sben-rho         ###   ########.fr        #
+#    Updated: 2024/09/03 16:36:43 by lsabatie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ NAME			:=	cub3D
 
 RM				:=	rm -rf
 CC				:=	gcc
-CFLAGS			:=	-g3 -Wall -Wextra -Werror -I$(HEAD_D)
+CFLAGS			:=	-Wall -Wextra -Werror -I$(HEAD_D)
 
 MLX_FLAGS		:=	-Lmlx_linux -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
@@ -75,7 +75,7 @@ MLX_FLAGS		:=	-Lmlx_linux -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 all				:	$(NAME)
 
-$(NAME)			:	$(OBJS_D) $(OBJS)
+$(NAME)			:	$(OBJS_D) $(OBJS) $(HEAD_A)
 					$(MAKE) -C mlx_linux all -s
 					@echo "${I_MAG}'OBJECTS'\t: ${GREEN} done ✅ ${RESET}\n"
 					@echo "${I_MAG}'CUB3D'\t\t: ${RED} Work In Progress ◌ ${RESET}"
