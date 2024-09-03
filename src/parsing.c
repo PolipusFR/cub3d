@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:50 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/09/03 11:10:23 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:30:32 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,18 @@ int	is_real_id(char *id)
 	return (1);
 }
 
+char	*return_status(t_parse *game, char *id, char *line, int fd)
+{
+	char	*status;
+
+	status = apply_case(line, id, game);
+	if (is_real_id(id) == 0)
+		return (status);
+	if (map_case(game, line, fd) == 1)
+		return ("Invalid Map\n");
+	return (NULL);
+}
+
 char	*get_value(t_parse *game, int fd)
 {
 	char	*line;
@@ -70,13 +82,7 @@ char	*get_value(t_parse *game, int fd)
 		if (status != NULL && full != NULL)
 			return (double_free(line, id), status);
 		else if (status != NULL && full == NULL)
-		{
-			if (is_real_id(id) == 0)
-				return (status);
-			if (map_case(game, line, fd) == 1)
-				return ("Invalid Map\n");
-			return (NULL);
-		}
+			return (return_status(game, id, line, fd));
 		double_free(line, id);
 		line = skip_newline(fd);
 	}

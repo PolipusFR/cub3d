@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_texture.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:40 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/09/03 11:47:07 by sben-rho         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:51:35 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,11 @@ void	assign_texture(char *id, char *temp, t_parse *game)
 		game->e = temp;
 }
 
-int	texture_case(char *line, char *id, t_parse *game)
+static int	texture_case_sub(t_parse *game, char *id, char *newline)
 {
-	char	*newline;
-	int		i;
-	char	*temp;
 	int		len;
+	char	*temp;
 
-	newline = remove_whitespace(line, ".0123456789");
-	if (newline == NULL)
-		return (1);
-	i = 2;
-	if (newline[i] != '.' || newline[i + 1] != '/')
-		return (free(newline), 1);
-	if (check_if_copy(id, game) == 1)
-		return (free(newline), 3);
 	temp = ft_substr(newline, 2, ft_strlen(newline) - 2);
 	if (temp == NULL)
 		return (free(newline), 1);
@@ -70,4 +60,20 @@ int	texture_case(char *line, char *id, t_parse *game)
 	}
 	assign_texture(id, temp, game);
 	return (0);
+}
+
+int	texture_case(char *line, char *id, t_parse *game)
+{
+	char	*newline;
+	int		i;
+
+	newline = remove_whitespace(line, ".0123456789");
+	if (newline == NULL)
+		return (1);
+	i = 2;
+	if (newline[i] != '.' || newline[i + 1] != '/')
+		return (free(newline), 1);
+	if (check_if_copy(id, game) == 1)
+		return (free(newline), 3);
+	return (texture_case_sub(game, id, newline));
 }

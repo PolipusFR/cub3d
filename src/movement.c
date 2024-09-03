@@ -6,7 +6,7 @@
 /*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:06:01 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/08/29 05:19:34 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:33:40 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,13 @@ int	move_possible(t_data *data, double new_pos_x, double new_pos_y)
 {
 	printf("new_pos_x: %f new_pos_y: %f\n", new_pos_x, new_pos_y);
 	if (new_pos_x < 0.5 || new_pos_y < 0.5)
-	{
-		printf("0");
 		return (0);
-	}
 	if (new_pos_x > (double)ft_strlen(data->parse->map[0]) - 1.1)
-	{
-		printf("1");
 		return (0);
-	}
 	if (new_pos_y > (double)ft_tablen(data->parse->map) - 1.1)
-	{
-		printf("2");
 		return (0);
-	}
 	if (data->game_data->parse->map[(int)new_pos_y][(int)new_pos_x] == '1')
-	{
-		printf("3");
 		return (0);
-	}
 	return (1);
 }
 
