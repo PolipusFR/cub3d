@@ -6,7 +6,7 @@
 /*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:06:01 by lsabatie          #+#    #+#             */
-/*   Updated: 2024/09/03 12:33:40 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:59:47 by lsabatie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int	key_press(int keycode, t_data *data)
 		data->keys->s = 1;
 	if (keycode == D_KEY)
 		data->keys->d = 1;
-	if (keycode == LEFT_KEY)
+	if (keycode == LEFT_KEY && data->keys->right == 0)
 		data->keys->left = 1;
-	if (keycode == RIGHT_KEY)
+	if (keycode == RIGHT_KEY && data->keys->left == 0)
 		data->keys->right = 1;
 	return (0);
 }
