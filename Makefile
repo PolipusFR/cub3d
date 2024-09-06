@@ -6,7 +6,7 @@
 #    By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/20 19:21:06 by lsabatie          #+#    #+#              #
-#    Updated: 2024/09/03 18:42:47 by lsabatie         ###   ########.fr        #
+#    Updated: 2024/09/06 10:35:44 by lsabatie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ NAME			:=	cub3D
 
 RM				:=	rm -rf
 CC				:=	gcc
-CFLAGS			:=	-g3 -Wall -Wextra -Werror -I$(HEAD_D)
+CFLAGS			:=	-Wall -Wextra -Werror -I$(HEAD_D)
 
 MLX_FLAGS		:=	-Lmlx_linux -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
