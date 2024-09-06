@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsabatie <lsabatie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sben-rho <sben-rho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:21:43 by sben-rho          #+#    #+#             */
-/*   Updated: 2024/09/03 18:18:14 by lsabatie         ###   ########.fr       */
+/*   Updated: 2024/09/04 11:00:33 by sben-rho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	check_file(char *path)
 		return (1);
 	if (ft_strlen(path) <= 4)
 		return (1);
-	if (check_extension(path, ".cub") == 1)
+	if (check_extension(path, ".cub") == -1)
 		return (1);
 	return (0);
 }
