@@ -14,6 +14,11 @@
 
 int	ft_clear_and_exit(t_data *data)
 {
+	if (data->mlx_ptr == NULL)
+	{
+		free_struct(data->parse);
+		exit(0);
+	}
 	if (data->game_data != NULL && data->game_data->img_ptr)
 		mlx_destroy_image(data->mlx_ptr, data->game_data->img_ptr);
 	if (data->game_data)
@@ -24,7 +29,8 @@ int	ft_clear_and_exit(t_data *data)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	if (data->keys)
 		free(data->keys);
-	mlx_destroy_display(data->mlx_ptr);
+	if (data->mlx_ptr)
+		mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	free_struct(data->parse);
 	exit(0);
@@ -41,23 +47,18 @@ void	init_hook(t_data *data)
 
 t_data	init_data(t_parse *parse, t_data data)
 {
-	data.win_ptr = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Cub3D");
 	data.parse = parse;
+	data.mlx_ptr = mlx_init();
+	if (data.mlx_ptr == NULL)
+	{
+		printf(BRED"Error\n\t"BMAG"mlx_init failed\n"RESET);
+		return (data);
+	}
+	data.win_ptr = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "Cub3D");
 	data.texture = NULL;
 	data.game_data = init_game_data(&data);
 	data.keys = init_keys();
 	return (data);
-}
-
-void	init_parse_and_mlx(t_parse *parse, t_data *data)
-{
-	init_struct(parse);
-	data->mlx_ptr = mlx_init();
-	if (!data->mlx_ptr)
-	{
-		printf(BRED"Error\n\t"BMAG"mlx_init failed\n"RESET);
-		exit(0);
-	}
 }
 
 int	main(int ac, char **av)
@@ -66,17 +67,15 @@ int	main(int ac, char **av)
 	t_parse	parse;
 	char	*status;
 
-	init_parse_and_mlx(&parse, &data);
+	init_struct(&parse);
 	if (ac == 2)
 	{
 		status = parsing(av[1], &parse);
 		if (status != NULL)
-		{
-			printf(BRED"Error\n\t"BMAG"%s"RESET, status);
-			return (0);
-		}
+			return (printf(BRED"Error\n\t"BMAG"%s"RESET, status), 0);
 		data = init_data(&parse, data);
-		if (data.game_data == NULL || data.keys == NULL || data.win_ptr == NULL)
+		if (data.parse == NULL || data.mlx_ptr == NULL || data.game_data == NULL
+			|| data.keys == NULL || data.win_ptr == NULL)
 			return (ft_clear_and_exit(&data), 0);
 		data.texture = get_textures(data.mlx_ptr, &parse);
 		if (!data.texture)
