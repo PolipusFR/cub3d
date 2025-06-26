@@ -1,6 +1,6 @@
 # Cub3D - A Raycasting Project
 
-![Cub3D Screenshot](screenshot.png) <!-- Ajoutez une capture d'écran plus tard -->
+<!-- Ajoutez une capture d'écran plus tard -->
 
 ## Description
 
@@ -22,11 +22,23 @@ Cub3D est un projet graphique inspiré du célèbre jeu Wolfenstein 3D, impléme
 
 - Compilateur GCC
 - Make
-- MiniLibX (incluse ou système)
+- MiniLibX (incluse)
 
 ## Installation
 
 1. Clonez le dépôt :
-```bash
+``` bash
 git clone https://github.com/PolipusFR/cub3d
 cd cub3d
+```
+
+2. Compilez le projet :
+``` bash
+make
+```
+
+Utilisation:
+``` bash
+./cub3d [carte en format ".cub"]
+```
+
