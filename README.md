@@ -42,3 +42,19 @@ Utilisation:
 ./cub3d [carte en format ".cub"]
 ```
 
+Exemple de fichier .cub valide:
+
+``` bash
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+EA ./textures/east.xpm
+F 220,100,0
+C 225,30,0
+
+111111
+100101
+101001
+1100N1
+111111
+```
